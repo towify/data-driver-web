@@ -1,0 +1,14 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        .st0 {
+            fill: #FFFFFF;
+        }
+    </style>
+    <rect class="st0" x="5.70589" y="2" width="7.46667" height="5.88235" rx="1" fill="white" fill-opacity="0.25"/>
+    <rect class="st0"  x="10" y="9" width="3" height="6" rx="1" fill="white" fill-opacity="0.5"/>
+    <rect class="st0" x="5.70589" y="16.1176" width="7.46667" height="5.88235" rx="1" fill="white" fill-opacity="0.75"/>
+    <rect class="st0" x="14.2392" y="2" width="7.46667" height="5.88235" rx="1" fill="white" fill-opacity="0.25"/>
+    <rect class="st0" x="14.2392" y="9.05882" width="7.46667" height="5.88235" rx="1" fill="white" fill-opacity="0.5"/>
+    <rect class="st0" x="14.2392" y="16.1176" width="7.46667" height="5.88235" rx="1" fill="white" fill-opacity="0.75"/>
+    <path class="st0" fill-rule="evenodd" clip-rule="evenodd" d="M3 7C2.44772 7 2 7.44772 2 8V16C2 16.5523 2.44772 17 3 17H11C11.5523 17 12 16.5523 12 16V8C12 7.44772 11.5523 7 11 7H3ZM7 9C7.44183 9 7.8 9.35817 7.8 9.8V11.2H9.2C9.64183 11.2 10 11.5582 10 12C10 12.4418 9.64183 12.8 9.2 12.8H7.8V14.2C7.8 14.6418 7.44183 15 7 15C6.55818 15 6.2 14.6418 6.2 14.2V12.8H4.8C4.35817 12.8 4 12.4418 4 12C4 11.5582 4.35817 11.2 4.8 11.2H6.2V9.8C6.2 9.35817 6.55818 9 7 9Z" fill="white"/>
+</svg>

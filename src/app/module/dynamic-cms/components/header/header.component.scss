@@ -1,0 +1,296 @@
+@import '../../common/common.scss';
+
+:host {
+  width: 100%;
+  height: $headerHeight;
+  display: block;
+
+  .bell-svg-white {
+    display: block !important;
+  }
+
+  .bell-svg-black {
+    display: none !important;
+  }
+
+  .language {
+    width: 20px;
+    height: 20px;
+    margin-top: -2px;
+  }
+
+  .language-black {
+    display: none;
+  }
+
+  .language-white {
+    display: inline-block;
+  }
+
+  .dropdown-menu {
+    top: -15px !important;
+  }
+
+  .header-container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 200px auto;
+    background-color: $third-dark;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    img {
+      width: 90px;
+      object-fit: cover;
+    }
+  }
+
+  .selected {
+    border-bottom: 3px solid white;
+  }
+
+  .common-button {
+    background-color: white;
+    width: 120px;
+    height: 36px;
+    border-radius: 6px;
+    font-size: 14px;
+    color: $title;
+  }
+
+  .split-line {
+    width: 2px;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+
+    &.dark {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .avatar {
+    height: 100%;
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+    align-self: center;
+    margin-top: 3px;
+    cursor: pointer;
+
+    .avatar-img {
+      width: 30px;
+      height: 30px;
+      object-fit: cover;
+      align-items: center;
+      border-radius: 30px;
+    }
+
+    span {
+      font-size: 12px;
+    }
+  }
+
+  .d-inline-block {
+    a {
+      display: block;
+      font-size: 14px;
+      color: white;
+      border-bottom: 3px solid transparent;
+    }
+  }
+
+  .dropdown-button {
+    color: $title;
+  }
+
+  .arrow-down {
+    border-top-color: $title;
+  }
+
+  .btn-outline-primary {
+    border: none;
+    color: white;
+    padding-left: 0;
+
+    span {
+      padding-right: 5px;
+    }
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
+  .dropdown-item {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .toolbar {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    align-items: center;
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5) inset;
+    height: 100%;
+    width: 100%;
+    background-color: $third-dark;
+
+    .project-intro {
+      overflow: hidden;
+      max-width: 120px;
+      min-width: 100px;
+      padding: 8px 10px;
+      display: grid;
+      row-gap: 2px;
+
+      .title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 16px;
+        font-size: 14px;
+        font-family: $mainFont;
+        font-weight: 500;
+        color: $text-content;
+      }
+    }
+
+    .drop-button {
+      display: grid;
+      height: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      grid-template-columns: auto 20px;
+      align-items: center;
+      font-size: 11px;
+      border-radius: 6px;
+      padding: 0 5px 0 10px;
+      font-family: $mainFont;
+      color: $text-content;
+      font-weight: bold;
+      background-color: $primary-dark;
+
+      .mat-icon {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        justify-self: end;
+      }
+    }
+
+    .drop-button:hover {
+      background-color: $third-dark;
+    }
+
+    .round-button:last-child {
+      margin-right: 20px;
+    }
+
+    .round-button {
+      width: 32px;
+      height: 32px;
+      margin-left: 0;
+      padding: 5px;
+      color: white;
+
+      &.space {
+        margin-left: auto;
+        margin-right: 0;
+      }
+
+      .disabled {
+        pointer-events: none;
+      }
+
+      .mat-icon {
+        width: 22px;
+        height: 22px;
+        line-height: 2px;
+        font-size: 22px;
+        color: $text-content-dark;
+        cursor: pointer;
+      }
+
+      ::ng-deep .mat-icon .st0 {
+        fill: $text-content-dark;
+      }
+
+      &:hover {
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.1);
+
+        ::ng-deep .mat-icon .st0 {
+          fill: white;
+        }
+      }
+
+      &.highlight {
+        border-radius: 8px;
+        background-color: $primary-dark;
+        .mat-icon {
+          color: rgba(255, 255, 255, 1);
+        }
+
+        ::ng-deep .mat-icon .st0 {
+          fill: white;
+        }
+      }
+
+      &.selected {
+        .mat-icon {
+          color: $primary;
+        }
+
+        ::ng-deep .mat-icon .st0 {
+          fill: $primary;
+        }
+      }
+
+      &.publish-button {
+        background-color: $wechat-brand-color;
+      }
+
+      &.simulator-button {
+        background-color: $primary;
+      }
+
+      &.special-button {
+        font-family: $mainFont;
+        width: max-content;
+        min-width: 80px;
+        height: 24px;
+        border-radius: 4px;
+        display: grid;
+        grid-template-columns: 20px auto;
+        column-gap: 5px;
+        align-items: center;
+        padding: 0 10px 0 10px;
+
+        .mat-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
+          line-height: 18px;
+        }
+
+        ::ng-deep .mat-icon .st0 {
+          fill: white;
+        }
+
+        span {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+}

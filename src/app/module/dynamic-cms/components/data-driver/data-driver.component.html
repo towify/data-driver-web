@@ -1,0 +1,39 @@
+<div class="main-container">
+  <lib-live-table
+    #dataDriver
+    *ngIf="dataDriverConfig"
+    [initConfig]="dataDriverConfig"
+    [extra]="extra"
+    [isCrossHairHighlighting]="isHighlight"
+    [showPrimaryKey]="showPrimaryKey"
+  ></lib-live-table>
+</div>
+<input
+  type="file"
+  style="opacity: 0; width: 1px; height: 1px; position: absolute; z-index: -1"
+  #csvInput
+  (change)="chooseFile(csvInput.files)"
+/>
+<div
+  class="menu-trigger"
+  [style.left.px]="menuPosition.x"
+  [style.top.px]="menuPosition.y"
+  [style.width.px]="menuPosition.width"
+  [style.height.px]="menuPosition.height"
+  #operateMenuTrigger="matMenuTrigger"
+  [matMenuTriggerFor]="operateMenu"
+>
+</div>
+<mat-menu #operateMenu="matMenu" class="operator-menu">
+  <div class="menu-container" (click)="$event.stopPropagation()">
+    <div
+      mat-menu-item
+      class="cell"
+      *ngFor="let action of menuInfo?.actions || []"
+      [ngClass]="action.enabled === false ? 'disable' : ''"
+      (click)="action.enabled !== false ? onMenuActionClicked(action.key) : ''"
+    >
+      {{ action.name | translate }}
+    </div>
+  </div>
+</mat-menu>

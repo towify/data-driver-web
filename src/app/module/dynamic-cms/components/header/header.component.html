@@ -1,0 +1,74 @@
+<div class="header-container" (click)="$event.stopImmediatePropagation()">
+  <div class="logo-container" (click)="router.navigate(['/'])">
+    <img
+      class="font-logo"
+      [src]="
+        isFixed
+          ? '../assets/icon/brand/font-logo-black.svg'
+          : darkFont
+          ? '../assets/icon/brand/font-logo-black.svg'
+          : '../assets/icon/brand/font-logo.svg'
+      "
+      alt="logo"
+    />
+  </div>
+  <div class="toolbar" *ngIf="service.isLoggedIn">
+    <div
+      class="round-button"
+      *ngFor="let item of service.headerToolbarActions"
+      [ngClass]="[item.isSelected ? 'selected' : '', item.isSpace ? 'space' : '']"
+      [matTooltip]="item.tooltip | translate"
+    >
+      <mat-icon [svgIcon]="item.icon" (click)="onToolbarActionClicked(item.key, $event)"></mat-icon>
+    </div>
+    <div class="split-line"></div>
+    <div
+      class="d-inline-block"
+      ngbDropdown
+      #lanDrop="ngbDropdown"
+      (mouseenter)="lanDrop.open()"
+      (mouseleave)="lanDrop.close()"
+    >
+      <a ngbDropdownToggle>
+        <img
+          class="me-1 language language-black"
+          src="assets/icon/home/language_black.svg"
+          alt="icon"
+        />
+        <img
+          class="language language-white me-1"
+          src="assets/icon/home/language.svg"
+          alt="icon"
+        /><span>{{ language }}</span></a
+      >
+      <div ngbDropdownMenu class="user-dropdown">
+        <button
+          ngbDropdownItem
+          [ngClass]="language === 'English' ? 'active' : ''"
+          (click)="setLanguage('English')"
+          >English</button
+        >
+        <button
+          ngbDropdownItem
+          [ngClass]="language === '中文' ? 'active' : ''"
+          (click)="setLanguage('中文')"
+          >中文</button
+        >
+      </div>
+    </div>
+    <div ngbDropdown class="'d-inline-block avatar towify-menu-trigger'">
+      <img
+        class="avatar-img"
+        [src]="service.user?.avatar || loginUserInfo?.avatar || ''"
+        alt="avatar"
+        ngbDropdownToggle
+      />
+      <button class="btn btn-outline-primary dropdown-button" id="dropdownBasic1" ngbDropdownToggle
+        ><span>{{ service.user?.username || loginUserInfo?.name || '' }}</span></button
+      >
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="user-dropdown">
+        <button ngbDropdownItem (click)="onLogoutClicked()">{{ 'SN_L' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>

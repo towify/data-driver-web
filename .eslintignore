@@ -1,0 +1,12 @@
+# don't lint builder
+# don't ever lint node_modules
+node_modules
+towify
+# don't lint build output (make sure it's set to your correct build folder name)
+dist
+# don't lint nyc coverage output
+main.js
+src/karma.conf.js
+src/polyfills-test.ts
+package.manager.ts
+e2e

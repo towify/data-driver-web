@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="138px" height="138px" viewBox="0 0 138 138" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group">
+            <rect id="矩形" x="0" y="0" width="138" height="138"></rect>
+            <g id="编组" transform="translate(18.000000, 11.000000)">
+                <path d="M8,0 L56.1619348,0 L56.1619348,0 L88.254469,32.1902874 L88.254469,102.3667 C88.254469,106.784978 84.672747,110.3667 80.254469,110.3667 L8,110.3667 C3.581722,110.3667 5.41083001e-16,106.784978 0,102.3667 L0,8 C-5.41083001e-16,3.581722 3.581722,8.11624501e-16 8,0 Z" id="矩形" fill-opacity="0.16" fill="#CBCBCB"></path>
+                <g id="编组-2" transform="translate(56.735016, 63.575818)">
+                    <ellipse id="椭圆形" fill="#CBCBCB" cx="26.1324921" cy="26.2120912" rx="26.1324921" ry="26.2120912"></ellipse>
+                    <polygon id="路径" fill="#454545" points="17.2328818 12.4162537 26.1311976 21.3429721 35.0321024 12.4162537 39.8864353 17.2853728 30.9855305 26.2120912 39.8864353 35.1388095 35.0321024 40.0079286 26.1311976 31.0812103 17.2328818 40.0079286 12.3785489 35.1388095 21.2768647 26.2120912 12.3785489 17.2853728"></polygon>
+                </g>
+                <path d="M56.1619348,4.50916476e-13 L88.254469,32.1902874 L64.1619348,32.1902874 C59.7436568,32.1902874 56.1619348,28.6085654 56.1619348,24.1902874 L56.1619348,4.50916476e-13 L56.1619348,4.50916476e-13 Z" id="矩形" fill="#CBCBCB"></path>
+            </g>
+            <rect id="矩形" fill="#CBCBCB" x="34" y="39" width="32" height="7"></rect>
+            <rect id="矩形备份" fill="#CBCBCB" x="34" y="57" width="56" height="7"></rect>
+            <rect id="矩形备份-2" fill="#CBCBCB" x="34" y="76" width="32" height="7"></rect>
+            <rect id="矩形备份-3" fill="#CBCBCB" x="34" y="94" width="32" height="7"></rect>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <title>icon-folder-sel24px</title>
+    <style>
+        .st0 {
+            fill: #FFFFFF;
+        }
+    </style>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon-folder" transform="translate(-183.000000, -226.000000)">
+            <g id="icon-folder-sel24px" transform="translate(183.000000, 226.000000)">
+                <rect id="矩形备份-8" x="0" y="0" width="24" height="24"></rect>
+                <polygon id="路径备份-7" class="st0" fill="#FFFFFF" fill-rule="nonzero" points="18 16.0286721 18 3 14 3 14 22.0379213 22 16.0286721" fill-opacity="0.6"></polygon>
+                <polygon id="路径备份-10" class="st0" fill="#FFFFFF" fill-rule="nonzero" points="6.00000001 7.99848818 6.00000001 21 10 21 10 2.03792135 2 7.99848818"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

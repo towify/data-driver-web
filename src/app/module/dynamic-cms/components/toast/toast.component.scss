@@ -1,0 +1,16 @@
+@import '../../common/common';
+
+:host {
+  width: 100%;
+  align-items: center;
+  position: absolute;
+  bottom: 100px;
+  left: auto;
+  z-index: 10000;
+  display: grid;
+  pointer-events: none;
+
+  .toast-container {
+    justify-self: center;
+  }
+}

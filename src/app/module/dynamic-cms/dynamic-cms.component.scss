@@ -1,0 +1,17 @@
+@import 'common/common.scss';
+
+:host {
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: $headerHeight auto;
+
+  .main-container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    background-color: #222222;
+  }
+}

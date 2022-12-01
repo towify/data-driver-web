@@ -1,0 +1,36 @@
+@import '../../common/common.scss';
+
+:host {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: hidden;
+
+  .main-container {
+    width: 100%;
+    height: 100%;
+    display: block;
+
+    lib-live-table {
+      overflow: hidden;
+
+      ::ng-deep .mat-drawer-container {
+        max-width: unset;
+      }
+
+      ::ng-deep .sidenav-content {
+        cursor: default;
+        opacity: 1;
+        background-color: #222;
+      }
+    }
+    ::ng-deep .mat-drawer-container {
+      margin: 0;
+      max-width: unset;
+    }
+    ::ng-deep .container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
