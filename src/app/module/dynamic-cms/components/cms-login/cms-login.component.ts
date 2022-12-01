@@ -13,12 +13,6 @@ export class CmsLoginComponent implements OnChanges {
   @Input()
   projectId = '';
 
-  @Input()
-  appInfo: { applicationLogo: string; applicationTitle: string } = {
-    applicationLogo: 'assets/icon/towify-logo.svg',
-    applicationTitle: 'Project Name'
-  };
-
   loginFailIcon = 'assets/icon/login/login-fail.svg';
   message = 'Scan QR Code to Login!';
   qrCodeURL = '';

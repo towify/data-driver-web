@@ -2,15 +2,10 @@
   <div class="logo-container" (click)="router.navigate(['/'])">
     <img
       class="font-logo"
-      [src]="
-        isFixed
-          ? '../assets/icon/brand/font-logo-black.svg'
-          : darkFont
-          ? '../assets/icon/brand/font-logo-black.svg'
-          : '../assets/icon/brand/font-logo.svg'
-      "
+      [src]="appInfo.applicationLogo || '../assets/icon/brand/font-logo.svg'"
       alt="logo"
     />
+    <span>{{ appInfo.applicationTitle }}</span>
   </div>
   <div class="toolbar" *ngIf="service.isLoggedIn">
     <div

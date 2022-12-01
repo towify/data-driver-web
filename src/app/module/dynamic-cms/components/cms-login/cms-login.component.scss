@@ -55,10 +55,10 @@
       }
 
       .refresh-qrcode-btn {
-        width: 260px;
-        height: 35px;
+        width: fit-content;
         background-color: $primary;
-        color: $text-content;
+        color: white;
+        font-size: 14px;
         margin-top: 50px;
       }
     }

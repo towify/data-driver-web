@@ -18,6 +18,12 @@ export class HeaderComponent implements OnInit {
   isFixed = false;
 
   @Input()
+  appInfo: { applicationLogo: string; applicationTitle: string } = {
+    applicationLogo: 'assets/icon/towify-logo.svg',
+    applicationTitle: 'Project Name'
+  };
+
+  @Input()
   showMenu = false;
 
   @Output()
@@ -26,9 +32,6 @@ export class HeaderComponent implements OnInit {
   @Output()
   showLoginOverlay = new EventEmitter();
 
-  darkFont = false;
-  selectedUrl = '';
-  unreadMessageCount = 0;
   language: 'English' | '中文' = 'English';
 
   loginUserInfo?: { name: string; avatar: string };
