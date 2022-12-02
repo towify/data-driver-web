@@ -32,7 +32,13 @@ export class DynamicCmsComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    await this.loadDriverInfoIdByDomain();
+    // await this.loadDriverInfoIdByDomain();
+    // TODO test info local host run
+    this.driverInfo = {
+      name: 'Untitled',
+      domain: '6384968b0b135713e6e2925f.towify.cn',
+      id: '6384968b0b135713e6e2925f'
+    };
   }
 
   async loadDriverInfoIdByDomain(): Promise<void> {

@@ -39,8 +39,8 @@ export class CmsLoginComponent implements OnChanges {
     if (this.qrCodeURL) {
       return;
     }
-    const appInfo = changes['appInfo'];
-    if (appInfo.currentValue?.driverId) {
+    const driverInfo = changes['driverInfo'];
+    if (driverInfo.currentValue?.id) {
       this.signUpWithWeChat().then();
     }
   }
@@ -87,7 +87,6 @@ export class CmsLoginComponent implements OnChanges {
 
   private async checkProjectMemberAuthority(): Promise<boolean> {
     const { message, model } = await this.service.userService.getUserInfo();
-    console.log(message, model);
     if (message || !model) {
       return false;
     }
@@ -102,7 +101,6 @@ export class CmsLoginComponent implements OnChanges {
         },
         path: '/authorization/resource/collaborators'
       });
-    console.log(result);
     if (result.errorMessage) {
       return false;
     }
