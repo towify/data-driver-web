@@ -11,18 +11,14 @@ import { SCF } from '@towify-serverless/scf-api/scf.info.list';
 })
 export class CmsLoginComponent implements OnChanges {
   @Input()
-  appInfo: {
-    driverId: string;
+  driverInfo: {
+    id: string;
     name: string;
-    cmsLogo: string;
-    cmsName: string;
     domain: string;
   } = {
     name: '',
     domain: '',
-    driverId: '',
-    cmsLogo: 'assets/icon/towify-logo.svg',
-    cmsName: 'Project Name'
+    id: ''
   };
 
   loginFailIcon = 'assets/icon/login/login-fail.svg';
@@ -50,9 +46,9 @@ export class CmsLoginComponent implements OnChanges {
   }
 
   async signUpWithWeChat() {
-    if (!this.appInfo.driverId) return;
+    if (!this.driverInfo.id) return;
     const result = await this.service.userService?.requestCmsWeChatBindingQrCode(
-      this.appInfo.domain
+      this.driverInfo.domain
     );
     this.loginStateIcon = '';
     if (result?.qrCode) {
@@ -101,7 +97,7 @@ export class CmsLoginComponent implements OnChanges {
         method: 'get',
         params: {
           resourceType: 'dataDriver',
-          resourceId: this.appInfo.driverId,
+          resourceId: this.driverInfo.id,
           clientType: 'web'
         },
         path: '/authorization/resource/collaborators'

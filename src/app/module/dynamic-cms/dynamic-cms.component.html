@@ -1,6 +1,6 @@
-<lib-header></lib-header>
+<lib-header [appInfo]="appInfo"></lib-header>
 <div class="main-container">
-  <lib-data-driver *ngIf="service.isLoggedIn" [driverId]="appInfo.driverId"></lib-data-driver>
-  <lib-cms-login *ngIf="!service.isLoggedIn" [appInfo]="appInfo"></lib-cms-login>
+  <lib-data-driver *ngIf="service.isLoggedIn" [driverId]="driverInfo.id"></lib-data-driver>
+  <lib-cms-login *ngIf="!service.isLoggedIn" [driverInfo]="driverInfo"></lib-cms-login>
 </div>
 <app-toast aria-live="polite" aria-atomic="true"></app-toast>

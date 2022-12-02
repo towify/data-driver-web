@@ -10,18 +10,19 @@ import { SCF } from '@towify-serverless/scf-api/scf.info.list';
   styleUrls: ['./dynamic-cms.component.scss']
 })
 export class DynamicCmsComponent implements OnInit {
-  appInfo: {
-    driverId: string;
+  appInfo: { applicationLogo: string; applicationTitle: string } = {
+    applicationLogo: 'assets/icon/towify-logo.svg',
+    applicationTitle: 'Project Name'
+  };
+
+  driverInfo: {
+    id: string;
     name: string;
-    cmsLogo: string;
-    cmsName: string;
     domain: string;
   } = {
-    driverId: '',
+    id: '',
     name: '',
-    domain: '',
-    cmsLogo: 'assets/icon/towify-logo.svg',
-    cmsName: 'Driver Name CMS'
+    domain: ''
   };
 
   constructor(
@@ -43,12 +44,14 @@ export class DynamicCmsComponent implements OnInit {
       path: '/livetable/dataDriver/getCmsInfo'
     });
     if (result.data) {
-      this.appInfo = {
-        driverId: result.data.id,
+      this.driverInfo = {
+        id: result.data.id,
         name: result.data.name,
-        domain: domain,
-        cmsLogo: result.data.cmsLogo ?? this.appInfo.cmsLogo,
-        cmsName: result.data.cmsName ?? this.appInfo.cmsName
+        domain: domain
+      };
+      this.appInfo = {
+        applicationLogo: result.data.cmsLogo ?? this.appInfo.applicationLogo,
+        applicationTitle: result.data.cmsName ?? this.appInfo.applicationTitle
       };
     } else {
       this.toast.showWarningMessage(result.errorMessage ?? 'Can not find driver info!');

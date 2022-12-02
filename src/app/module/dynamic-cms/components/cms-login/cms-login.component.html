@@ -1,7 +1,5 @@
 <div class="main-container">
   <div class="login-container">
-    <img [src]="appInfo.cmsLogo || 'assets/icon/towify-logo.svg'" alt="logo" />
-    <span>{{ appInfo.cmsName }} {{ 'CMS' | translate }}</span>
     <div class="iframe-container">
       <ng-container *ngIf="!loginStateIcon">
         <iframe
