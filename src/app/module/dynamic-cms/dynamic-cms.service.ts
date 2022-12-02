@@ -153,7 +153,6 @@ export class DynamicCmsService {
     this.isLoginLoading = false;
     this.isLoggedIn = true;
     await this.configServices();
-    console.log('login success');
     this.message.notify(cmsMessageName.loggedIn, true);
   }
 

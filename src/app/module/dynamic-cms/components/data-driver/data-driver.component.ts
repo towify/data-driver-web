@@ -254,6 +254,7 @@ export class DataDriverComponent implements OnInit {
           language: params.language,
           provider: 'data-driver'
         });
+        LiveDataService.getInstance().scf.setExtraHeader(() => ({ client: this.service.client }));
       }
       const result = await LiveDataService.getInstance().dataDriver?.getById(this.driverId);
       if (result?.message || !result?.driver) {
@@ -279,7 +280,6 @@ export class DataDriverComponent implements OnInit {
     };
 
     this.message.getMessage<boolean>(cmsMessageName.loggedIn).subscribe(async _ => {
-      console.log('login in');
       await updateConfigHandler();
     });
     this.message
