@@ -32,17 +32,21 @@ export class DynamicCmsComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    // await this.loadDriverInfoIdByDomain();
-    // TODO test info local host run
-    this.driverInfo = {
-      name: 'Untitled',
-      domain: '6384968b0b135713e6e2925f.towify.cn',
-      id: '6384968b0b135713e6e2925f'
-    };
+    await this.loadDriverInfoIdByDomain();
   }
 
   async loadDriverInfoIdByDomain(): Promise<void> {
-    const domain = window.location.host;
+    let domain = window.location.host;
+    // TODO test info local host
+    if (domain.startsWith('localhost')) {
+      domain = '6384968b0b135713e6e2925f.towify.cn';
+      // this.driverInfo = {
+      //   name: 'Untitled',
+      //   domain: '6384968b0b135713e6e2925f.towify.cn',
+      //   id: '6384968b0b135713e6e2925f'
+      // };
+      // return;
+    }
     const result = await this.service.userService.scf.call<SCF.LiveTableGetDataDriverCmsInfo>({
       ignoreToken: true,
       method: 'post',
