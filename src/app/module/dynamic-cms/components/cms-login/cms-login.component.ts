@@ -1,8 +1,8 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { DynamicCmsService } from '../../dynamic-cms.service';
-import { Project } from '@towify-serverless/user-cms-scf-api';
 import { ToastService } from '../../service/toast.service';
+import { SCF } from '@towify-serverless/scf-api/scf.info.list';
 
 @Component({
   selector: 'lib-cms-login',
@@ -11,12 +11,18 @@ import { ToastService } from '../../service/toast.service';
 })
 export class CmsLoginComponent implements OnChanges {
   @Input()
-  projectId = '';
-
-  @Input()
-  appInfo: { applicationLogo: string; applicationTitle: string } = {
-    applicationLogo: 'assets/icon/towify-logo.svg',
-    applicationTitle: 'Project Name'
+  appInfo: {
+    driverId: string;
+    name: string;
+    cmsLogo: string;
+    cmsName: string;
+    domain: string;
+  } = {
+    name: '',
+    domain: '',
+    driverId: '',
+    cmsLogo: 'assets/icon/towify-logo.svg',
+    cmsName: 'Project Name'
   };
 
   loginFailIcon = 'assets/icon/login/login-fail.svg';
@@ -37,16 +43,16 @@ export class CmsLoginComponent implements OnChanges {
     if (this.qrCodeURL) {
       return;
     }
-    const projectIdChanges = changes['projectId'];
-    if (projectIdChanges.currentValue) {
+    const appInfo = changes['appInfo'];
+    if (appInfo.currentValue?.driverId) {
       this.signUpWithWeChat().then();
     }
   }
 
   async signUpWithWeChat() {
-    if (!this.projectId) return;
+    if (!this.appInfo.driverId) return;
     const result = await this.service.userService?.requestCmsWeChatBindingQrCode(
-      window.location.href
+      this.appInfo.domain
     );
     this.loginStateIcon = '';
     if (result?.qrCode) {
@@ -84,17 +90,26 @@ export class CmsLoginComponent implements OnChanges {
   }
 
   private async checkProjectMemberAuthority(): Promise<boolean> {
-    console.debug(this.projectId);
-    const result = await this.service.userService.scf.call<Project.CheckProjectMemberAuthority>({
-      ignoreToken: false,
-      method: 'get',
-      params: { projectId: this.projectId },
-      path: '/project/member/authority/check'
-    });
-    console.debug(result, 'check');
+    const { message, model } = await this.service.userService.getUserInfo();
+    console.log(message, model);
+    if (message || !model) {
+      return false;
+    }
+    const result =
+      await this.service.userService.scf.call<SCF.AuthorizationGetResourceCollaborators>({
+        ignoreToken: false,
+        method: 'get',
+        params: {
+          resourceType: 'dataDriver',
+          resourceId: this.appInfo.driverId,
+          clientType: 'web'
+        },
+        path: '/authorization/resource/collaborators'
+      });
+    console.log(result);
     if (result.errorMessage) {
       return false;
     }
-    return result.data !== undefined ? result.data : false;
+    return result.data ? result.data.some(item => item.id === model.id) : false;
   }
 }

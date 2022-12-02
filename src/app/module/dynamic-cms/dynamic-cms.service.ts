@@ -9,16 +9,13 @@ import { ErrorEnum } from '@towify/scf-engine';
 import { errors } from '@towify/scf-engine/type/common.value';
 import { DynamicCmsMessageService } from './service/dynamic-cms-message.service';
 import { cmsMessageName } from './common/value';
-import { IProjectCmsService, ProjectCmsService } from '@towify/kit-engine';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DynamicCmsService {
-  // #baseUrl = 'https://api-test.towify.com';
-  #baseUrl = 'https://api.towify.com';
+  #isProduction = false;
   public userService: UserService;
-  public projectCMSService?: IProjectCmsService;
   public isLoggedIn = false;
   public isLoadingLocalUser = false;
   isLoginLoading = false;
@@ -40,8 +37,16 @@ export class DynamicCmsService {
     }
   ];
 
+  get isProduction() {
+    return this.#isProduction;
+  }
+
   get baseUrl() {
-    return this.#baseUrl;
+    return this.isProduction ? this.productionBaseUrl : this.developmentBaseUrl;
+  }
+
+  get developmentBaseUrl() {
+    return 'https://api-test.towify.com';
   }
 
   get productionBaseUrl() {
@@ -88,7 +93,7 @@ export class DynamicCmsService {
     private readonly translateService: TranslateService
   ) {
     this.userService = UserService.init({
-      url: this.#baseUrl,
+      url: this.baseUrl,
       language: this.language === 'en_US' ? Language.EN : Language.ZH,
       environment: this.#client
     });
@@ -137,7 +142,7 @@ export class DynamicCmsService {
     localStorage.clear();
     await UserService.instance.logOut();
     this.userService = UserService.init({
-      url: this.#baseUrl,
+      url: this.baseUrl,
       language: this.language === 'en_US' ? Language.EN : Language.ZH,
       environment: this.#client
     });
@@ -153,10 +158,8 @@ export class DynamicCmsService {
   }
 
   private async configServices(): Promise<void> {
-    const serviceParams = this.#serviceInitialConfigParams();
-    this.projectCMSService = ProjectCmsService.init(serviceParams);
     ResourceSDK.init({
-      apiUrl: this.#baseUrl,
+      apiUrl: this.baseUrl,
       token: this.token,
       projectId: '',
       provider: 'user-cms',
@@ -164,7 +167,7 @@ export class DynamicCmsService {
     });
   }
 
-  #serviceInitialConfigParams(): {
+  public serviceInitialConfigParams(): {
     url: string;
     token: string;
     userId: string;
@@ -173,7 +176,7 @@ export class DynamicCmsService {
   } {
     const language: Language = this.language === 'en_US' ? Language.EN : Language.ZH;
     return {
-      url: this.#baseUrl,
+      url: this.baseUrl,
       token: this.token || '',
       userId: this.user?.id || '',
       language: language,

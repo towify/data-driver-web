@@ -11,7 +11,6 @@ import {
   LiveTableService
 } from '@towify/data-driver';
 import { Language } from '@towify-serverless/scf-api';
-import { ProjectModel } from '@towify/kit-engine';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { WebCsvParseService } from '@towify/web-csv-parser';
 import { ResourceSDK } from '@towify/web-uploader';
@@ -23,6 +22,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { ToastService } from '../../service/toast.service';
+import { LiveDataService } from '@towify/data-engine';
 
 @Component({
   selector: 'lib-data-driver',
@@ -31,7 +31,7 @@ import { ToastService } from '../../service/toast.service';
 })
 export class DataDriverComponent implements OnInit {
   @Input()
-  projectId = '';
+  driverId = '';
 
   @ViewChild('operateMenuTrigger')
   private operateMenuTrigger?: MatMenuTrigger;
@@ -70,7 +70,6 @@ export class DataDriverComponent implements OnInit {
     rowPerTableLimit: -1
   };
 
-  currentProject?: ProjectModel;
   toolbarIcons: { name: string; path: string }[] = [
     {
       name: 'toolbar_side_bar',
@@ -223,7 +222,6 @@ export class DataDriverComponent implements OnInit {
   showMenuObserve?: Subscription;
   driver?: { appKey: string; id: string };
 
-
   constructor(
     public readonly service: DynamicCmsService,
     private readonly router: Router,
@@ -247,9 +245,17 @@ export class DataDriverComponent implements OnInit {
 
   async ngOnInit() {
     const updateConfigHandler = async () => {
-      const result = await this.service.projectCMSService?.getProjectMountedDataDriver(
-        this.projectId
-      );
+      if (!LiveDataService.hasInstance) {
+        const params = this.service.serviceInitialConfigParams();
+        await LiveDataService.init({
+          serverUrl: params.url,
+          token: params.token,
+          appKey: '',
+          language: params.language,
+          provider: 'data-driver'
+        });
+      }
+      const result = await LiveDataService.getInstance().dataDriver?.getById(this.driverId);
       if (result?.message || !result?.driver) {
         return;
       }

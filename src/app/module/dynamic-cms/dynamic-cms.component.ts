@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DynamicCmsService } from './dynamic-cms.service';
-import { ProjectCMS } from '@towify-serverless/user-cms-scf-api';
 import { ToastService } from './service/toast.service';
+import { SCF } from '@towify-serverless/scf-api/scf.info.list';
 
 @Component({
   selector: 'lib-dynamic-cms',
@@ -10,11 +10,18 @@ import { ToastService } from './service/toast.service';
   styleUrls: ['./dynamic-cms.component.scss']
 })
 export class DynamicCmsComponent implements OnInit {
-  projectId = '';
-  qrCodeURL = '';
-  appInfo: { applicationLogo: string; applicationTitle: string } = {
-    applicationLogo: 'assets/icon/towify-logo.svg',
-    applicationTitle: 'Project Name CMS'
+  appInfo: {
+    driverId: string;
+    name: string;
+    cmsLogo: string;
+    cmsName: string;
+    domain: string;
+  } = {
+    driverId: '',
+    name: '',
+    domain: '',
+    cmsLogo: 'assets/icon/towify-logo.svg',
+    cmsName: 'Driver Name CMS'
   };
 
   constructor(
@@ -24,24 +31,27 @@ export class DynamicCmsComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    await this.loadProjectInfoIdByDomain();
+    await this.loadDriverInfoIdByDomain();
   }
 
-  async loadProjectInfoIdByDomain(): Promise<void> {
-    const result = await this.service.userService.scf.call<ProjectCMS.GetProjectCmsInfo>({
+  async loadDriverInfoIdByDomain(): Promise<void> {
+    const domain = window.location.host;
+    const result = await this.service.userService.scf.call<SCF.LiveTableGetDataDriverCmsInfo>({
       ignoreToken: true,
-      method: 'get',
-      params: { domain: window.location.host },
-      path: '/project/cms/info'
+      method: 'post',
+      params: { subdomain: domain },
+      path: '/livetable/dataDriver/getCmsInfo'
     });
     if (result.data) {
-      this.projectId = result.data.projectId;
       this.appInfo = {
-        applicationLogo: result.data.applicationLogo ?? this.appInfo.applicationLogo,
-        applicationTitle: result.data.applicationTitle ?? this.appInfo.applicationTitle
+        driverId: result.data.id,
+        name: result.data.name,
+        domain: domain,
+        cmsLogo: result.data.cmsLogo ?? this.appInfo.cmsLogo,
+        cmsName: result.data.cmsName ?? this.appInfo.cmsName
       };
     } else {
-      this.toast.showWarningMessage(result.errorMessage ?? 'Can not find project!');
+      this.toast.showWarningMessage(result.errorMessage ?? 'Can not find driver info!');
     }
   }
 }
