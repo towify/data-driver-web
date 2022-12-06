@@ -7,6 +7,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import {
   ContentMenuInfoType,
   ContentMenuResultType,
+  DataDriverEventEnum,
   LiveTableComponent,
   LiveTableService
 } from '@towify/data-driver';
@@ -428,6 +429,34 @@ export class DataDriverComponent implements OnInit {
         this.#showLoading();
       } else {
         this.#hideLoading();
+      }
+    });
+
+    this.dataDriverService.observeDataUpdated().subscribe(async info => {
+      const { type, url } = info;
+      if (
+        type === DataDriverEventEnum.CreateNewTableLimited ||
+        type === DataDriverEventEnum.CreateNewFieldLimited ||
+        type === DataDriverEventEnum.CreateNewTableFieldLimited ||
+        type === DataDriverEventEnum.CreateNewReferenceFieldLimited
+      ) {
+        const translateInfo = await this.service.getTranslateMap(['QT_XCD_INF']);
+        this.toast.showWarningMessage(translateInfo['QT_XCD_INF']);
+        return;
+      }
+      if (
+        type === DataDriverEventEnum.SelectLockedTable ||
+        type === DataDriverEventEnum.AddLockedTableDataRow ||
+        type === DataDriverEventEnum.EditLockedFieldName ||
+        type === DataDriverEventEnum.EditLockedFieldCell
+      ) {
+        await this.toast.showWarningMessage('Can not access or edit locked table resource!');
+        return;
+      }
+      if (type === 'downloadURL') {
+        if (window && url) {
+          window.open(<string>url);
+        }
       }
     });
   }

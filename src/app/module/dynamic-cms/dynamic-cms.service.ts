@@ -90,7 +90,8 @@ export class DynamicCmsService {
 
   constructor(
     private readonly message: DynamicCmsMessageService,
-    private readonly translateService: TranslateService
+    private readonly translateService: TranslateService,
+    private readonly translate: TranslateService
   ) {
     this.userService = UserService.init({
       url: this.baseUrl,
@@ -201,6 +202,19 @@ export class DynamicCmsService {
   public getRequestErrorMessageByCode(code: number = -1): string {
     return this.userService.scf.errorManager.getMessage({
       code: <ErrorEnum>code
+    });
+  }
+
+  async getTranslateMap(keys: string[]): Promise<{ [key: string]: string }> {
+    return new Promise<{ [key: string]: string }>(resolve => {
+      const keyMap: { [key: string]: string } = {};
+      const allKeys = [...keys, 'CNFRM', 'CNCL', 'GT_T'];
+      this.translate.get(allKeys).subscribe(info => {
+        allKeys.forEach(key => {
+          keyMap[key] = info[key] ?? key;
+        });
+        resolve(keyMap);
+      });
     });
   }
 }

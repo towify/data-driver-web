@@ -19,3 +19,25 @@ export const localStorageKey = {
   loginUserInfo: 'loginUserInfo',
   currentProjectJsonString: 'currentProjectJsonString'
 };
+
+export type DataType = 'Translation' | 'ErrorList';
+
+export type TDSConfigType = {
+  Translation: {
+    tableId: string;
+    fieldHashName: {
+      key: string;
+      enUS: string;
+      zhCN: string;
+    };
+  };
+  ErrorList: {
+    tableId: string;
+    fieldHashName: {
+      code: string;
+      enUS: string;
+      zhCN: string;
+      needToReport: string;
+    };
+  };
+};
