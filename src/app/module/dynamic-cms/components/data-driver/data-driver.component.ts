@@ -246,17 +246,15 @@ export class DataDriverComponent implements OnInit {
 
   async ngOnInit() {
     const updateConfigHandler = async () => {
-      if (!LiveDataService.hasInstance) {
-        const params = this.service.serviceInitialConfigParams();
-        await LiveDataService.init({
-          serverUrl: params.url,
-          token: params.token,
-          appKey: '',
-          language: params.language,
-          provider: 'data-driver'
-        });
-        LiveDataService.getInstance().scf.setExtraHeader(() => ({ client: this.service.client }));
-      }
+      const params = this.service.serviceInitialConfigParams();
+      await LiveDataService.init({
+        serverUrl: params.url,
+        token: params.token,
+        appKey: '',
+        language: params.language,
+        provider: 'data-driver'
+      });
+      LiveDataService.getInstance().scf.setExtraHeader(() => ({ client: this.service.client }));
       const result = await LiveDataService.getInstance().dataDriver?.getById(this.driverId);
       if (result?.message || !result?.driver) {
         return;
