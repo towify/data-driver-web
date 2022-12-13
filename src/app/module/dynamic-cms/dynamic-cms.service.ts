@@ -14,7 +14,7 @@ import { cmsMessageName } from './common/value';
   providedIn: 'root'
 })
 export class DynamicCmsService {
-  #isProduction = false;
+  #isProduction = true;
   public userService: UserService;
   public isLoggedIn = false;
   public isLoadingLocalUser = false;
