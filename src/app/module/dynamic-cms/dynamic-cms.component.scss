@@ -7,6 +7,7 @@
   height: 100%;
   display: grid;
   grid-template-rows: $headerHeight auto;
+  overflow: hidden;
 
   .main-container {
     width: 100%;
