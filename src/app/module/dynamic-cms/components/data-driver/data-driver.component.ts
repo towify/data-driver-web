@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { DynamicCmsService } from '../../dynamic-cms.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DynamicCmsMessageService } from '../../service/dynamic-cms-message.service';
-import { cmsMessageName } from '../../common/value';
+import { ImageUrlQuality, cmsMessageName } from '../../common/value';
 import { MatMenuTrigger } from '@angular/material/menu';
 import {
   ContentMenuInfoType,
@@ -24,6 +24,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { ToastService } from '../../service/toast.service';
 import { LiveDataService } from '@towify/data-engine';
+import { ResourceEnum } from '@towify-types/resource';
+import { PhotoKitComponent } from '@towify/photo-kit';
+import {FieldValueEnum} from "@towify-types/live-data";
 
 @Component({
   selector: 'lib-data-driver',
@@ -469,6 +472,44 @@ export class DataDriverComponent implements OnInit {
         }
       }
     });
+
+    this.dataDriverService.chooseResourceSubscribe(async result => {
+      return new Promise<string[]>(resolve => {
+        const fileType = <FieldValueEnum>result['fileType'];
+        if (!this.driver?.resource?.fileDriver) {
+          resolve([]);
+          return;
+        }
+        let fileTypes: ResourceEnum[];
+        if (fileType === 'file') {
+          fileTypes = [ResourceEnum.DMG, ResourceEnum.YML, ResourceEnum.ZIP, ResourceEnum.JSON];
+        } else if (fileType === FieldValueEnum.Audio) {
+          fileTypes = [ResourceEnum.Audio];
+        } else if (fileType === FieldValueEnum.Video) {
+          fileTypes = [ResourceEnum.Video];
+        } else if (fileType === FieldValueEnum.Pdf) {
+          fileTypes = [ResourceEnum.PDF];
+        } else {
+          fileTypes = [ResourceEnum.Image];
+        }
+        this.#selectResourceFromPhotoKitByFileType({
+          fileDriverId: this.driver.resource.fileDriver,
+          instanceId: this.driver.id,
+          instanceType: 'dataDriver',
+          fileTypes: fileTypes
+        }).then(data => {
+          if (data?.urls) {
+            if (fileType === FieldValueEnum.MultipleImages || fileType === FieldValueEnum.Image) {
+              resolve([data.selectedCropUrl ?? data.urls.full]);
+            } else {
+              resolve([data.urls.full]);
+            }
+          } else {
+            resolve([]);
+          }
+        });
+      });
+    });
   }
 
   onMenuActionClicked(actionKey: string | number) {
@@ -487,5 +528,45 @@ export class DataDriverComponent implements OnInit {
 
   #hideLoading(): void {
     this.#loadingRef?.close();
+  }
+
+  async #selectResourceFromPhotoKitByFileType(params: {
+    fileDriverId: string;
+    instanceId: string;
+    instanceType: 'project' | 'dataDriver';
+    fileTypes?: ResourceEnum[];
+  }): Promise<{ urls?: ImageUrlQuality; id?: string; selectedCropUrl?: string }> {
+    return new Promise<{ urls?: ImageUrlQuality; id?: string; selectedCropUrl?: string }>(
+      resolve => {
+        const dialogRef = this.dialog.open(PhotoKitComponent, {
+          width: '80%'
+        });
+        dialogRef.componentInstance.init({
+          apiUrl: this.service.baseUrl,
+          token: this.service.token || '',
+          userId: this.service.user?.id || '',
+          fileDriverId: params.fileDriverId,
+          instanceId: params.instanceId,
+          instanceType: params.instanceType,
+          platformKeys: {
+            pexels: '563492ad6f91700001000001825479c737344c4bae47de27d827d493',
+            unsplash: 'enbifwZ71DbikK2-Aku_HNRX4O0nNUbUsh5qMx7bo_E'
+          },
+          language: this.service.language === 'en_US' ? Language.EN : Language.ZH,
+          fileTypes: params.fileTypes,
+          environment: <any>this.service.client
+        });
+        dialogRef.componentInstance.onSelectedPhoto.subscribe(
+          async (data: { urls: ImageUrlQuality; id: string; selectedCropUrl?: string }) => {
+            resolve(data);
+          }
+        );
+        dialogRef.afterClosed().subscribe(() => {
+          if (!dialogRef.componentInstance.selectedImage) {
+            resolve({});
+          }
+        });
+      }
+    );
   }
 }

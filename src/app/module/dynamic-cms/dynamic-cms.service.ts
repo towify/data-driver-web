@@ -9,7 +9,6 @@ import { ErrorEnum } from '@towify/scf-engine';
 import { errors } from '@towify/scf-engine/type/common.value';
 import { DynamicCmsMessageService } from './service/dynamic-cms-message.service';
 import { cmsMessageName } from './common/value';
-import { ProviderType, UserType } from '@towify-types/resource';
 
 @Injectable({
   providedIn: 'root'

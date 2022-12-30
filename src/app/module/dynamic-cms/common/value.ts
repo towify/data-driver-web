@@ -41,3 +41,11 @@ export type TDSConfigType = {
     };
   };
 };
+
+export type ImageUrlQuality = {
+  full: string;
+  raw: string;
+  regular: string;
+  small: string;
+  thumb: string;
+};
