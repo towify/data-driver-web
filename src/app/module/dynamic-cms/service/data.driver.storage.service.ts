@@ -23,11 +23,11 @@ export class DataDriverStorageService {
   readonly #localStorageKey = 'translation';
   readonly tableConfig: TDSConfigType = {
     Translation: {
-      tableId: '62e1fd1ba44f8227c16bb9a1',
+      tableId: '62df6446ade075f4b96f15c1',
       fieldHashName: {
-        key: 'f5ckM26FFUWrwsVW',
-        enUS: '64uk4eBmON51RtQW',
-        zhCN: 'ffmHqBeEjtuLkBnZ'
+        key: 'MVMETfx7KXlBWXiN',
+        enUS: 'SgrwAUeuj3GiJMhy',
+        zhCN: 'mDwrv99i7w2iyDeW'
       }
     },
     ErrorList: {

@@ -5,6 +5,20 @@
   height: 100%;
   display: block;
   overflow: hidden;
+  user-select: none;
+
+  .menu-trigger {
+    background: transparent;
+    pointer-events: none;
+    z-index: -100;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+  }
+
+  div {
+    user-select: none !important;
+  }
 
   .main-container {
     width: 100%;
