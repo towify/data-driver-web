@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~highlight.js/styles/atom-one-dark-reasonable.css';
-@import '~@angular/material/theming';
-@import '~@towify/common-values/styles/common.styles.scss';
+@import '@angular/material/theming';
+@import '@towify/common-values/styles/common.styles.scss';
 @include mat-core();
 
 $towify-library-primary: mat-palette($mat-indigo);

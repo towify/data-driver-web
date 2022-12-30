@@ -4,17 +4,18 @@ import { Shared } from 'soid-data';
 import { localStorageKey } from './common/value';
 import { TranslateService } from '@ngx-translate/core';
 import { Language } from '@towify-serverless/scf-api';
-import { ResourceSDK } from '@towify/web-uploader';
+import { WebUploader } from '@towify/web-uploader';
 import { ErrorEnum } from '@towify/scf-engine';
 import { errors } from '@towify/scf-engine/type/common.value';
 import { DynamicCmsMessageService } from './service/dynamic-cms-message.service';
 import { cmsMessageName } from './common/value';
+import { ProviderType, UserType } from '@towify-types/resource';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DynamicCmsService {
-  #isProduction = false;
+  #isProduction = true;
   public userService: UserService;
   public isLoggedIn = false;
   public isLoadingLocalUser = false;
@@ -158,11 +159,12 @@ export class DynamicCmsService {
   }
 
   private async configServices(): Promise<void> {
-    ResourceSDK.init({
+    WebUploader.init({
       apiUrl: this.baseUrl,
-      token: this.token,
-      projectId: '',
-      provider: 'user-cms',
+      token: this.token ?? '',
+      provider: 'file-driver',
+      userType: 'user',
+      filterDriverId: '',
       environment: this.#client
     });
   }

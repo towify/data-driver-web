@@ -14,7 +14,7 @@ import {
 import { Language } from '@towify-serverless/scf-api';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { WebCsvParseService } from '@towify/web-csv-parser';
-import { ResourceSDK } from '@towify/web-uploader';
+import { WebUploader } from '@towify/web-uploader';
 import { WebCsvParserManager } from '@towify/web-csv-parser/manager/web-csv-parser.manager';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
@@ -52,6 +52,8 @@ export class DataDriverComponent implements OnInit {
     appKey: string;
     userId: string;
     language: Language;
+    fileDriverId: string;
+    fileDriverPermissions?: ('view' | 'create' | 'update' | 'delete' | string)[];
     sharedProjectId?: string;
     sharedOwnerPermissions?: ('view' | 'create' | 'update' | 'delete' | string)[];
     environment?: 'web' | 'electron' | 'projectCms';
@@ -221,7 +223,13 @@ export class DataDriverComponent implements OnInit {
   };
 
   showMenuObserve?: Subscription;
-  driver?: { appKey: string; id: string };
+  driver?: {
+    appKey: string;
+    id: string;
+    resource: {
+      [module in 'fileDriver']: string;
+    };
+  };
 
   constructor(
     public readonly service: DynamicCmsService,
@@ -252,7 +260,9 @@ export class DataDriverComponent implements OnInit {
         token: params.token,
         appKey: '',
         language: params.language,
-        provider: 'data-driver'
+        provider: 'data-driver',
+        environment: <any>this.service.client,
+        fileDriverId: ''
       });
       LiveDataService.getInstance().scf.setExtraHeader(() => ({ client: this.service.client }));
       const result = await LiveDataService.getInstance().dataDriver?.getById(this.driverId);
@@ -267,7 +277,8 @@ export class DataDriverComponent implements OnInit {
         appKey: this.driver.appKey,
         language: this.service.language === 'zh_CN' ? Language.ZH : Language.EN,
         userId: this.service.user?.id ?? '',
-        environment: this.service.client
+        environment: this.service.client,
+        fileDriverId: this.driver?.resource?.fileDriver ?? ''
       };
       this.extra = {
         canUsePayment: false,
@@ -339,12 +350,13 @@ export class DataDriverComponent implements OnInit {
   ngOnDestroy() {
     this.showMenuObserve?.unsubscribe();
     this.showMenuObserve = undefined;
-    ResourceSDK.init({
+    WebUploader.init({
       apiUrl: this.service.baseUrl,
-      token: this.service.token,
-      projectId: '',
-      provider: 'user-cms',
-      environment: this.service.client
+      token: this.service.token ?? '',
+      environment: this.service.client,
+      provider: 'file-driver',
+      userType: 'user',
+      filterDriverId: ''
     });
   }
 
