@@ -26,7 +26,7 @@ import { ToastService } from '../../service/toast.service';
 import { LiveDataService } from '@towify/data-engine';
 import { ResourceEnum } from '@towify-types/resource';
 import { PhotoKitComponent } from '@towify/photo-kit';
-import {FieldValueEnum} from "@towify-types/live-data";
+import { FieldValueEnum } from '@towify-types/live-data';
 
 @Component({
   selector: 'lib-data-driver',
@@ -258,14 +258,15 @@ export class DataDriverComponent implements OnInit {
   async ngOnInit() {
     const updateConfigHandler = async () => {
       const params = this.service.serviceInitialConfigParams();
+      // 该初始化用于拉取 dataDriver model
       await LiveDataService.init({
         serverUrl: params.url,
         token: params.token,
         appKey: '',
         language: params.language,
-        provider: 'data-driver',
-        environment: <any>this.service.client,
-        fileDriverId: ''
+        environment: <'web' | 'electron'>this.service.client,
+        fileDriverId: '',
+        dataDriverId: ''
       });
       LiveDataService.getInstance().scf.setExtraHeader(() => ({ client: this.service.client }));
       const result = await LiveDataService.getInstance().dataDriver?.getById(this.driverId);
