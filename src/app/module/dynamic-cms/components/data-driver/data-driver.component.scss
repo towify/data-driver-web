@@ -48,3 +48,10 @@
     }
   }
 }
+
+::ng-deep .operator-menu {
+  ::ng-deep .mat-mdc-menu-item {
+    font-size: 12px;
+    min-height: 32px;
+  }
+}
