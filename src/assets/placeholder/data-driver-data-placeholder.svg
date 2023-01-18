@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300px" height="240px" viewBox="0 0 300 240" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <title>Default-NoData</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="95.128672%" id="linearGradient-1">
+            <stop stop-color="#FFFFFF" stop-opacity="0.788253251" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="92.0197248%" y1="100%" x2="42.1277646%" y2="50%" id="linearGradient-2">
+            <stop stop-color="#5E5E5E" offset="0%"></stop>
+            <stop stop-color="#5D5D5D" stop-opacity="0.1" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="100%" y1="57.5470663%" x2="0%" y2="42.4529337%" id="linearGradient-3">
+            <stop stop-color="#5D5D5D" stop-opacity="0.1" offset="0%"></stop>
+            <stop stop-color="#5E5E5E" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Default-NoData">
+            <rect id="矩形" x="0" y="0" width="300" height="240"></rect>
+            <g id="编组-15" transform="translate(28.000000, 2.000000)">
+                <path d="M65.5584416,0 L205.714286,0 C207.923425,-4.05812251e-16 209.714286,1.790861 209.714286,4 L209.714286,124.041946 C209.714286,126.234636 207.949019,128.018609 205.756451,128.041724 L38.4317761,129.805663 C36.2227599,129.828951 34.4131201,128.057068 34.3898326,125.848051 C34.3896845,125.833997 34.3896104,125.819941 34.3896104,125.805886 L34.3896104,34 L34.3896104,34 L65.5584416,0 Z" id="矩形备份-30" fill="url(#linearGradient-1)" opacity="0.102022008" transform="translate(122.051948, 64.924138) scale(-1, 1) translate(-122.051948, -64.924138) "></path>
+                <path d="M209.714286,0 L209.714286,30 C209.714286,32.209139 207.923425,34 205.714286,34 L178.545455,34 L178.545455,34 L209.714286,0 Z" id="矩形备份-31" fill="url(#linearGradient-2)" opacity="0.751230876" transform="translate(194.129870, 17.000000) scale(-1, 1) translate(-194.129870, -17.000000) "></path>
+                <g id="编组-13" transform="translate(0.879934, 66.319943)">
+                    <ellipse id="椭圆形备份-7" cx="121.172014" cy="122.755919" rx="120.779221" ry="46.9241379"></ellipse>
+                    <ellipse id="椭圆形备份-7" fill="url(#linearGradient-3)" opacity="0.3" cx="121.172014" cy="122.755919" rx="120.779221" ry="46.9241379"></ellipse>
+                    <g id="编组-23" transform="translate(0.392794, 1.680057)">
+                        <ellipse id="椭圆形备份-6" cx="120.779221" cy="84" rx="120.779221" ry="46.9241379"></ellipse>
+                        <ellipse id="椭圆形备份-6" fill="url(#linearGradient-3)" opacity="0.6" cx="120.779221" cy="84" rx="120.779221" ry="46.9241379"></ellipse>
+                        <ellipse id="椭圆形" cx="120.779221" cy="46.9241379" rx="120.779221" ry="46.9241379"></ellipse>
+                        <ellipse id="椭圆形" fill="url(#linearGradient-3)" cx="120.779221" cy="46.9241379" rx="120.779221" ry="46.9241379"></ellipse>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
