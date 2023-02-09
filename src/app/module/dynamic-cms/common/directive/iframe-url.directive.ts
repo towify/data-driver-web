@@ -1,4 +1,5 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, Inject, Input } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Directive({
   selector: '[frameUrl]'
@@ -9,5 +10,5 @@ export class IframeUrlDirective {
     (<HTMLIFrameElement>this.el.nativeElement).src = url;
   }
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef, @Inject(DOCUMENT) protected readonly document: Document) {}
 }

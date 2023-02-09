@@ -82,6 +82,7 @@ export class DataDriverComponent extends DataDriverDataComponent implements OnIn
         dataDriverId: ''
       });
       LiveDataService.getInstance().scf.setExtraHeader(() => ({ client: this.service.client }));
+      if (!this.driverId) return;
       const result = await LiveDataService.getInstance().dataDriver?.getById(this.driverId);
       if (result?.message || !result?.driver) {
         return;

@@ -1,19 +1,24 @@
-<div class="main-container">
-  <div class="login-container">
-    <div class="iframe-container">
-      <ng-container *ngIf="!loginStateIcon">
-        <iframe
-          [frameUrl]="qrCodeURL"
-          *ngIf="qrCodeURL"
-          sandbox="allow-scripts allow-same-origin"
-        ></iframe>
-        <towify-loading [theme]="'white'" [type]="'medium'" *ngIf="!qrCodeURL"></towify-loading>
-      </ng-container>
-      <img [src]="loginStateIcon" alt="" *ngIf="loginStateIcon" />
-    </div>
-    <span>{{ message }}</span>
-    <button class="btn refresh-qrcode-btn" (click)="signUpWithWeChat()">{{
-      'Refresh QR Code' | translate
-    }}</button>
+<div class="login-container">
+  <img class="logo" src="./assets/icon/towify-font-logo.svg" alt="logo" />
+  <p class="description"
+    >Quick form data insertion page, without data drive, you can still insert data conveniently and
+    with authority</p
+  >
+  <div class="iframe-container">
+    <ng-container *ngIf="!loginStateIcon">
+      <iframe
+        [frameUrl]="qrCodeURL"
+        *ngIf="qrCodeURL"
+        sandbox="allow-scripts allow-same-origin"
+        id="qrCodeFrame"
+      ></iframe>
+      <towify-loading [theme]="'dark'" [type]="'medium'" *ngIf="!qrCodeURL"></towify-loading>
+    </ng-container>
+    <img class="failed-icon" [src]="loginStateIcon" alt="" *ngIf="loginStateIcon" />
   </div>
+  <span class="description">{{ message }}</span>
+  <button matRipple mat-raised-button [color]="'primary'" (click)="signUpWithWeChat()">{{
+    'Refresh QR Code' | translate
+  }}</button>
 </div>
+<float-button></float-button>

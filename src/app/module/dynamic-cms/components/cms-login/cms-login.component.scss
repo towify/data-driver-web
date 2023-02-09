@@ -1,65 +1,61 @@
+@import '@towify/common-values/styles/common.styles.scss';
 @import '../../common/common.scss';
 
 :host {
   width: 100%;
   height: 100%;
-  display: block;
+  display: grid;
 
-  .main-container {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    background-color: #222222;
+  .login-container {
+    max-width: 360px;
+    align-self: center;
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    justify-items: center;
+    align-items: center;
 
-    .login-container {
-      align-self: center;
-      justify-self: center;
+    .logo {
+      width: 180px;
+      height: 60px;
+    }
+
+    .description {
+      text-align: center;
+      font-size: 12px;
+      line-height: 18px;
+      color: $text-content-dark;
+    }
+
+    .iframe-container {
+      box-shadow: $white-shadow-border;
+      transform: scale(0.75);
+      width: 310px;
+      height: 310px;
+      overflow: hidden;
       display: grid;
-      grid-auto-flow: row;
-      grid-auto-rows: max-content;
-      row-gap: 10px;
-      justify-items: center;
-      color: $text-content;
+      background-color: $primary-dark;
+      border-radius: 10px;
 
-      img {
+      .failed-icon {
         width: 90px;
         height: 90px;
         overflow: hidden;
         object-fit: cover;
         border-radius: 10px;
+        align-self: center;
+        justify-self: center;
       }
 
-      .iframe-container {
-        width: 300px;
-        height: 310px;
-        overflow: hidden;
-        display: grid;
-        background-color: rgba(255, 255, 255, 0.03);
-        border-radius: 8px;
-        iframe {
-          width: 100%;
-          height: 100%;
-        }
-
-        towify-loading {
-          align-self: center;
-          justify-self: center;
-        }
-
-        img {
-          width: 80%;
-          height: 80%;
-          align-self: center;
-          justify-self: center;
-        }
+      iframe {
+        width: 100%;
+        height: 100%;
       }
 
-      .refresh-qrcode-btn {
-        width: fit-content;
-        background-color: $primary;
-        color: white;
-        font-size: 14px;
-        margin-top: 50px;
+      towify-loading {
+        align-self: center;
+        justify-self: center;
       }
     }
   }

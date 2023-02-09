@@ -19,6 +19,8 @@ import { IframeUrlDirective } from './common/directive/iframe-url.directive';
 import { CmsLoginComponent } from './components/cms-login/cms-login.component';
 import { ToastComponent } from './components/toast/toast.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatRippleModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -37,8 +39,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     TranslateModule,
     MatIconModule,
     MatMenuModule,
+    MatRippleModule,
     MatTooltipModule,
     MatDialogModule,
+    MatButtonModule,
     TowifyLoadingModule,
     NgbModule,
     NgbDropdownModule,
