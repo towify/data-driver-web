@@ -124,15 +124,27 @@ export class DataDriverComponent extends DataDriverDataComponent implements OnIn
             this.dataDriver?.showTableGeneratorDialog();
             break;
           case 'Filter':
+            if (this.dataDriver?.isDashboardSelected) {
+              return;
+            }
             this.dataDriver?.showMenu('Filter', result.event);
             break;
           case 'HideFields':
+            if (this.dataDriver?.isDashboardSelected) {
+              return;
+            }
             this.dataDriver?.showMenu('HideFields', result.event);
             break;
           case 'RowHeight':
+            if (this.dataDriver?.isDashboardSelected) {
+              return;
+            }
             this.dataDriver?.showMenu('RowHeight', result.event);
             break;
           case 'importTableByCSV':
+            if (this.dataDriver?.isDashboardSelected) {
+              return;
+            }
             if (this.csvInput) {
               const input = this.csvInput.nativeElement;
               input.value = '';
@@ -140,18 +152,30 @@ export class DataDriverComponent extends DataDriverDataComponent implements OnIn
             }
             break;
           case 'Highlight':
+            if (this.dataDriver?.isDashboardSelected) {
+              return;
+            }
             this.isHighlight = !this.isHighlight;
             break;
           case 'Primary':
+            if (this.dataDriver?.isDashboardSelected) {
+              return;
+            }
             this.showPrimaryKey = !this.showPrimaryKey;
             break;
           case 'Refresh':
             this.dataDriver?.refreshCurrentTable();
             break;
           case 'Search':
+            if (this.dataDriver?.isDashboardSelected) {
+              return;
+            }
             this.dataDriver?.showMenu('Search', result.event);
             break;
           case 'exportTableAsCSV':
+            if (this.dataDriver?.isDashboardSelected) {
+              return;
+            }
             this.dataDriver?.exportToCsv();
             break;
           default:
