@@ -1,0 +1,49 @@
+@import '@angular/material/theming';
+
+$common-font-family: 'SF Pro Text', 'HanHei SC', 'Myriad Set Pro', 'SF Pro Icons', 'Helvetica Neue',
+  'Helvetica', 'Arial', sans-serif;
+
+@include mat-core();
+$towify-blue: (
+  50: #057ee5,
+  100: #02c17e,
+  200: #057ee5,
+  300: #057ee5,
+  400: #057ee5,
+  500: #057ee5,
+  600: #057ee5,
+  700: #057ee5,
+  800: #057ee5,
+  900: #057ee5,
+  A100: #057ee5,
+  A200: #057ee5,
+  A400: #057ee5,
+  A700: #057ee5,
+  contrast: (
+    50: #057ee5,
+    100: white,
+    200: #057ee5,
+    300: #057ee5,
+    400: #057ee5,
+    500: #057ee5,
+    600: #057ee5,
+    700: #057ee5,
+    800: white,
+    900: #057ee5,
+    A100: #057ee5,
+    A200: #057ee5,
+    A400: #057ee5,
+    A700: #057ee5
+  )
+);
+$primary: mat-palette($towify-blue, 800);
+$accent: mat-palette($mat-teal);
+$towify-theme: mat-dark-theme($primary, $accent);
+
+@include angular-material-theme($towify-theme);
+
+$custom-typography: mat-typography-config(
+  $font-family: $common-font-family
+);
+
+@include angular-material-typography($custom-typography);

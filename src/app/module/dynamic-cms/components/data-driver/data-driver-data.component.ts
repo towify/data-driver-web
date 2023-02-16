@@ -12,7 +12,6 @@ import { Subscription } from 'rxjs';
 
 @Directive()
 export abstract class DataDriverDataComponent {
-  isShowUpgradePlan = true;
   isHighlight = false;
   showPrimaryKey = false;
   isOpeningSideNavigator = false;

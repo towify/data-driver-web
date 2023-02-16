@@ -2,6 +2,8 @@
 @import '~highlight.js/styles/atom-one-dark-reasonable.css';
 @import '@angular/material/theming';
 @import '@towify/common-values/styles/common.styles.scss';
+@import 'assets/theme/theme';
+
 @include mat-core();
 
 $towify-library-primary: mat-palette($mat-indigo);
@@ -16,10 +18,10 @@ $towify-library-theme: mat-dark-theme(
     )
   )
 );
-@include angular-material-theme($towify-library-theme);
-.towify-library-overlay-light-theme {
-  @include angular-material-color(mat-light-theme($towify-library-primary, $towify-library-accent));
-}
+//@include angular-material-theme($towify-library-theme);
+//.towify-library-overlay-light-theme {
+//  @include angular-material-color(mat-light-theme($towify-library-primary, $towify-library-accent));
+//}
 
 @font-face {
   font-family: 'fixed-font';
@@ -216,4 +218,17 @@ div {
 }
 app-project-settings {
   height: 100%;
+}
+
+.cdk-overlay-container {
+  --mdc-theme-surface: #313131;
+}
+
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-color: #282828;
+  color: $text-content;
+}
+
+.mdc-list-item__primary-text {
+  --mdc-typography-body1-font-size: 12px;
 }

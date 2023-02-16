@@ -151,7 +151,7 @@ export class DataDriverComponent extends DataDriverDataComponent implements OnIn
           case 'Search':
             this.dataDriver?.showMenu('Search', result.event);
             break;
-          case 'toolbar_export_csv':
+          case 'exportTableAsCSV':
             this.dataDriver?.exportToCsv();
             break;
           default:
