@@ -87,6 +87,18 @@ export abstract class DataDriverDataComponent {
     {
       name: 'toolbar_data_driver_search',
       path: 'assets/live-table.icons/towify-live-table-search.svg'
+    },
+    {
+      name: 'towify_file_driver',
+      path: 'assets/toolbar/toolbar_file_driver_icon.svg'
+    },
+    {
+      name: 'towify_photo_kit_pexels',
+      path: 'assets/toolbar/toolbar_photo_kit_pexels_icon.svg'
+    },
+    {
+      name: 'towify_photo_kit_unsplash',
+      path: 'assets/toolbar/toolbar_photo_kit_unsplash_icon.svg'
     }
   ];
 

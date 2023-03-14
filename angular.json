@@ -29,9 +29,18 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets", "src/unsupported.html"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/unsupported.html",
+              {
+                "glob": "**/*",
+                "input": "node_modules/tinymce",
+                "output": "/tinymce/"
+              }
+            ],
             "styles": ["src/styles.scss", "node_modules/bootstrap/dist/css/bootstrap.min.css"],
-            "scripts": [],
+            "scripts": ["node_modules/tinymce/tinymce.min.js"],
             "stylePreprocessorOptions": {
               "includePaths": ["node_modules/"]
             }

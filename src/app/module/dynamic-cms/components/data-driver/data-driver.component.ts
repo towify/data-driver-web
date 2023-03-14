@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { DynamicCmsService } from '../../dynamic-cms.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { DynamicCmsMessageService } from '../../service/dynamic-cms-message.service';
 import { ImageUrlQuality, cmsMessageName } from '../../common/value';
 import { MatMenuTrigger } from '@angular/material/menu';
@@ -24,7 +24,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ToastService } from '../../service/toast.service';
 import { LiveDataService } from '@towify/data-engine';
 import { ResourceEnum } from '@towify-types/resource';
-import { PhotoKitComponent } from '@towify/photo-kit';
+import { PhotoKit, PhotoKitComponent, PhotoKitService } from '@towify/photo-kit';
 import { FieldValueEnum } from '@towify-types/live-data';
 import { DataDriverDataComponent } from './data-driver-data.component';
 
@@ -45,18 +45,19 @@ export class DataDriverComponent extends DataDriverDataComponent implements OnIn
   @ViewChild('csvInput') csvInput?: ElementRef;
 
   #loadingRef?: MatDialogRef<any>;
+  #photoKitInitialConfig?: PhotoKit.InitialType;
 
   constructor(
     public readonly service: DynamicCmsService,
     private readonly router: Router,
-    public readonly active: ActivatedRoute,
     private readonly message: DynamicCmsMessageService,
     private readonly translate: TranslateService,
     private readonly dialog: MatDialog,
     private readonly dataDriverService: LiveTableService,
     private readonly matIconRegistry: MatIconRegistry,
     private readonly domSanitizer: DomSanitizer,
-    private readonly toast: ToastService
+    private readonly toast: ToastService,
+    private readonly photoKitService: PhotoKitService
   ) {
     super();
     this.toolbarIcons.forEach(icon => {
@@ -329,7 +330,7 @@ export class DataDriverComponent extends DataDriverDataComponent implements OnIn
         } else if (fileType === FieldValueEnum.Pdf) {
           fileTypes = [ResourceEnum.PDF];
         } else {
-          fileTypes = [ResourceEnum.Image];
+          fileTypes = [ResourceEnum.Image, ResourceEnum.Icon];
         }
         this.#selectResourceFromPhotoKitByFileType({
           fileDriverId: this.driver.resource.fileDriver,
@@ -339,7 +340,7 @@ export class DataDriverComponent extends DataDriverDataComponent implements OnIn
         }).then(data => {
           if (data?.urls) {
             if (fileType === FieldValueEnum.MultipleImages || fileType === FieldValueEnum.Image) {
-              resolve([data.selectedCropUrl ?? data.urls.full]);
+              resolve([data.urls.full]);
             } else {
               resolve([data.urls.full]);
             }
@@ -348,6 +349,20 @@ export class DataDriverComponent extends DataDriverDataComponent implements OnIn
           }
         });
       });
+    });
+
+    this.photoKitService.observeMessage().subscribe(result => {
+      const { showMessage, message } = result;
+      if (showMessage) {
+        this.toast.showWarningMessage(<string>message);
+        return;
+      }
+    });
+    this.photoKitService.observeDataUpdated().subscribe(async info => {
+      const { type } = info;
+      if (type === PhotoKit.EventEnum.OpenKitStore) {
+        window.open('https://www.towify.com/#/template');
+      }
     });
   }
 
@@ -374,38 +389,60 @@ export class DataDriverComponent extends DataDriverDataComponent implements OnIn
     instanceId: string;
     instanceType: 'project' | 'dataDriver';
     fileTypes?: ResourceEnum[];
-  }): Promise<{ urls?: ImageUrlQuality; id?: string; selectedCropUrl?: string }> {
-    return new Promise<{ urls?: ImageUrlQuality; id?: string; selectedCropUrl?: string }>(
-      resolve => {
-        const dialogRef = this.dialog.open(PhotoKitComponent, {
-          width: '80%'
-        });
-        dialogRef.componentInstance.init({
-          apiUrl: this.service.baseUrl,
-          token: this.service.token || '',
-          userId: this.service.user?.id || '',
-          fileDriverId: params.fileDriverId,
-          instanceId: params.instanceId,
-          instanceType: params.instanceType,
-          platformKeys: {
-            pexels: '563492ad6f91700001000001825479c737344c4bae47de27d827d493',
-            unsplash: 'enbifwZ71DbikK2-Aku_HNRX4O0nNUbUsh5qMx7bo_E'
-          },
-          language: this.service.language === 'en_US' ? Language.EN : Language.ZH,
-          fileTypes: params.fileTypes,
-          environment: <any>this.service.client
-        });
-        dialogRef.componentInstance.onSelectedPhoto.subscribe(
-          async (data: { urls: ImageUrlQuality; id: string; selectedCropUrl?: string }) => {
-            resolve(data);
+  }): Promise<
+    { urlType: 'link' | 'svg'; id: string; urls?: ImageUrlQuality; svgContent?: string } | undefined
+  > {
+    return new Promise<
+      | { urlType: 'link' | 'svg'; id: string; urls?: ImageUrlQuality; svgContent?: string }
+      | undefined
+    >(resolve => {
+      this.#photoKitInitialConfig = {
+        apiUrl: this.service.baseUrl,
+        token: this.service.token || '',
+        userId: this.service.user?.id || '',
+        fileDriverId: params.fileDriverId,
+        instanceId: params.instanceId,
+        instanceType: params.instanceType,
+        platformKeys: {
+          pexels: '563492ad6f91700001000001825479c737344c4bae47de27d827d493',
+          unsplash: 'enbifwZ71DbikK2-Aku_HNRX4O0nNUbUsh5qMx7bo_E'
+        },
+        language: this.service.language === 'en_US' ? Language.EN : Language.ZH,
+        fileTypes: params.fileTypes,
+        environment: <any>this.service.client,
+        installedKits: [],
+        disabledTabs: ['Icon']
+      };
+      const dialogRef = this.dialog.open(PhotoKitComponent, {
+        width: '90vw',
+        maxWidth: '960px',
+        hasBackdrop: true,
+        maxHeight: '85vh',
+        minHeight: '85vh',
+        height: '85vh',
+        data: {
+          initialConfig: this.#photoKitInitialConfig
+        }
+      });
+      dialogRef.componentInstance.onSelectedPhoto.subscribe(
+        async (data: {
+          urls?: ImageUrlQuality;
+          id: string;
+          content?: string;
+          platform: PhotoKit.TabType;
+        }) => {
+          this.#photoKitInitialConfig = undefined;
+          if (data.platform === 'Icon') {
+            resolve({ urlType: 'svg', id: data.id, svgContent: data.content });
+          } else {
+            resolve({ urlType: 'link', id: data.id, urls: data.urls });
           }
-        );
-        dialogRef.afterClosed().subscribe(() => {
-          if (!dialogRef.componentInstance.selectedImage) {
-            resolve({});
-          }
-        });
-      }
-    );
+        }
+      );
+      dialogRef.componentInstance.cancelSelect.subscribe(() => {
+        this.#photoKitInitialConfig = undefined;
+        resolve(undefined);
+      });
+    });
   }
 }
