@@ -4,17 +4,11 @@ import { Router } from '@angular/router';
 import { DynamicCmsMessageService } from '../../service/dynamic-cms-message.service';
 import { ImageUrlQuality, cmsMessageName } from '../../common/value';
 import { MatMenuTrigger } from '@angular/material/menu';
-import {
-  ContentMenuInfoType,
-  ContentMenuResultType,
-  DataDriverEventEnum,
-  LiveTableComponent,
-  LiveTableService
-} from '@towify/data-driver';
+import { LiveTable, LiveTableComponent, LiveTableService } from 'src/package-index/driver';
 import { Language } from '@towify-serverless/scf-api';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { WebCsvParseService } from '@towify/web-csv-parser';
-import { WebUploader } from '@towify/web-uploader';
+import { WebUploader } from 'src/package-index/web-uploader';
 import { WebCsvParserManager } from '@towify/web-csv-parser/manager/web-csv-parser.manager';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
@@ -22,7 +16,7 @@ import { LoadingDialogComponent } from '../loading-dialog/loading-dialog.compone
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ToastService } from '../../service/toast.service';
-import { LiveDataService } from '@towify/data-engine';
+import { LiveDataService } from 'src/package-index/data-engine';
 import { ResourceEnum } from '@towify-types/resource';
 import { PhotoKit, PhotoKitComponent, PhotoKitService } from '@towify/photo-kit';
 import { FieldValueEnum } from '@towify-types/live-data';
@@ -231,8 +225,8 @@ export class DataDriverComponent extends DataDriverDataComponent implements OnIn
 
   private observeAlertInfo() {
     const showContentMenu = (
-      info: ContentMenuInfoType,
-      hold: (key: ContentMenuResultType) => void
+      info: LiveTable.ContentMenuInfoType,
+      hold: (key: LiveTable.ContentMenuResultType) => void
     ) => {
       this.menuInfo = { ...info, hold };
       const event = info.event as MouseEvent;
@@ -288,20 +282,20 @@ export class DataDriverComponent extends DataDriverDataComponent implements OnIn
     this.dataDriverService.observeDataUpdated().subscribe(async info => {
       const { type, url } = info;
       if (
-        type === DataDriverEventEnum.CreateNewTableLimited ||
-        type === DataDriverEventEnum.CreateNewFieldLimited ||
-        type === DataDriverEventEnum.CreateNewTableFieldLimited ||
-        type === DataDriverEventEnum.CreateNewReferenceFieldLimited
+        type === LiveTable.EventEnum.CreateNewTableLimited ||
+        type === LiveTable.EventEnum.CreateNewFieldLimited ||
+        type === LiveTable.EventEnum.CreateNewTableFieldLimited ||
+        type === LiveTable.EventEnum.CreateNewReferenceFieldLimited
       ) {
         const translateInfo = await this.service.getTranslateMap(['QT_XCD_INF']);
         this.toast.showWarningMessage(translateInfo['QT_XCD_INF']);
         return;
       }
       if (
-        type === DataDriverEventEnum.SelectLockedTable ||
-        type === DataDriverEventEnum.AddLockedTableDataRow ||
-        type === DataDriverEventEnum.EditLockedFieldName ||
-        type === DataDriverEventEnum.EditLockedFieldCell
+        type === LiveTable.EventEnum.SelectLockedTable ||
+        type === LiveTable.EventEnum.AddLockedTableDataRow ||
+        type === LiveTable.EventEnum.EditLockedFieldName ||
+        type === LiveTable.EventEnum.EditLockedFieldCell
       ) {
         await this.toast.showWarningMessage('Can not access or edit locked table resource!');
         return;

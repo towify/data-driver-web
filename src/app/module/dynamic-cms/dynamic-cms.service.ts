@@ -4,7 +4,7 @@ import { Shared } from 'soid-data';
 import { localStorageKey } from './common/value';
 import { TranslateService } from '@ngx-translate/core';
 import { Language } from '@towify-serverless/scf-api';
-import { WebUploader } from '@towify/web-uploader';
+import { WebUploader } from 'src/package-index/web-uploader';
 import { ErrorEnum } from '@towify/scf-engine';
 import { errors } from '@towify/scf-engine/type/common.value';
 import { DynamicCmsMessageService } from './service/dynamic-cms-message.service';
@@ -14,7 +14,7 @@ import { cmsMessageName } from './common/value';
   providedIn: 'root'
 })
 export class DynamicCmsService {
-  #isProduction = true;
+  #isProduction = false;
   public userService: UserService;
   public isLoggedIn = false;
   public isLoadingLocalUser = false;
@@ -46,11 +46,11 @@ export class DynamicCmsService {
   }
 
   get developmentBaseUrl() {
-    return 'https://api-test.towify.com';
+    return 'https://api-test-aws.towify.com';
   }
 
   get productionBaseUrl() {
-    return 'https://api.towify.com';
+    return 'https://api-test-aws.towify.com';
   }
 
   get user() {

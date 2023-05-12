@@ -6,8 +6,7 @@
 
 import { Directive } from '@angular/core';
 import { Language } from '@towify-serverless/scf-api';
-import { MatDialogRef } from '@angular/material/dialog';
-import { ContentMenuInfoType, ContentMenuResultType } from '@towify/data-driver';
+import { LiveTable } from 'src/package-index/driver';
 import { Subscription } from 'rxjs';
 
 @Directive()
@@ -195,7 +194,9 @@ export abstract class DataDriverDataComponent {
     }
   ];
 
-  menuInfo?: ContentMenuInfoType & { hold: (key: ContentMenuResultType) => void };
+  menuInfo?: LiveTable.ContentMenuInfoType & {
+    hold: (key: LiveTable.ContentMenuResultType) => void;
+  };
   menuPosition: { x: number; y: number; width: number; height: number } = {
     x: 0,
     y: 0,

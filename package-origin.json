@@ -25,10 +25,7 @@
   "lint-staged": {
     "*.html": "prettier --write --parser angular",
     "*.component.html": "prettier --write --parser angular",
-    "*.{js,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
+    "*.{js,ts,tsx}": ["eslint --fix", "prettier --write"],
     "*.js": "eslint --cache --fix",
     "*.{js,css,md,json,scss}": "prettier --write"
   },
@@ -71,6 +68,11 @@
     "@towify/data-driver-china": "^1.0.4",
     "@tinymce/tinymce-angular": "^7.0.0",
     "towify-data-driver-storage": "^0.4.2",
+    "@aws-sdk/client-s3": "~3.236.0",
+    "@aws-sdk/lib-storage": "~3.236.0",
+    "@towify/aws-web-uploader": "^0.0.4",
+    "@towify/data-engine-oversea": "^0.0.2",
+    "@towify/data-driver-oversea": "^1.0.2",
     "echarts": "5.4.1",
     "bootstrap": "^5.1.3",
     "dexie": "^3.2.3",
