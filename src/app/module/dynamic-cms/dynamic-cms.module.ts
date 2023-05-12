@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { DynamicCmsComponent } from './dynamic-cms.component';
-import { LiveTableModule } from '@towify/data-driver';
+import { LiveTableModule } from 'src/package-index/driver';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
 import { TowifyLoadingModule } from '@towify/components';
