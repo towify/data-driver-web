@@ -24,6 +24,7 @@ if (process.argv[3] === 'china') {
   delete packageJson.dependencies['@towify/data-driver-oversea'];
   [
     { src: './towify-build-resource-china/package-index/driver.ts', dist: './src/package-index/driver.ts' },
+    { src: './towify-build-resource-china/package-index/data-engine.ts', dist: './src/package-index/data-engine.ts' },
     { src: './towify-build-resource-china/package-index/web-uploader.ts', dist: './src/package-index/web-uploader.ts' },
   ].forEach((path) => {
     const fileContent = fileSystem.readFileSync(path.src);
@@ -38,6 +39,7 @@ if (process.argv[3] === 'china') {
   delete packageJson.dependencies['@towify/data-driver-china'];
   [
     { src: './towify-build-resource-oversea/package-index/driver.ts', dist: './src/package-index/driver.ts' },
+    { src: './towify-build-resource-oversea/package-index/data-engine.ts', dist: './src/package-index/data-engine.ts' },
     { src: './towify-build-resource-oversea/package-index/web-uploader.ts', dist: './src/package-index/web-uploader.ts' },
   ].forEach((path) => {
     const fileContent = fileSystem.readFileSync(path.src);
