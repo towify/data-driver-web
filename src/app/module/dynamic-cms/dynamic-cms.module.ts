@@ -21,6 +21,7 @@ import { ToastComponent } from './components/toast/toast.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRippleModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
+import { ServiceUnavailableComponent } from './components/service-unavailable/service-unavailable.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MatButtonModule } from '@angular/material/button';
     LoadingDialogComponent,
     IframeUrlDirective,
     CmsLoginComponent,
-    ToastComponent
+    ToastComponent,
+    ServiceUnavailableComponent
   ],
   imports: [
     CommonModule,

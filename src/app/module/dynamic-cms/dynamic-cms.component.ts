@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DynamicCmsService } from './dynamic-cms.service';
 import { ToastService } from './service/toast.service';
 import { SCF } from '@towify-serverless/scf-api/scf.info.list';
 import { Commodity } from '@towify-types/user';
+import { DynamicCmsMessageService } from './service/dynamic-cms-message.service';
+import { cmsMessageName } from './common/value';
 
 @Component({
   selector: 'lib-dynamic-cms',
@@ -28,11 +30,19 @@ export class DynamicCmsComponent implements OnInit {
     commodities: []
   };
 
+  #isLogin = false;
+
   constructor(
     public readonly service: DynamicCmsService,
     public readonly active: ActivatedRoute,
-    private readonly toast: ToastService
-  ) {}
+    private readonly toast: ToastService,
+    private readonly message: DynamicCmsMessageService,
+    private readonly router: Router
+  ) {
+    this.message.getMessage<boolean>(cmsMessageName.loggedIn).subscribe(async _ => {
+      this.#isLogin = true;
+    });
+  }
 
   async ngOnInit() {
     await this.loadDriverInfoIdByDomain();
@@ -42,7 +52,8 @@ export class DynamicCmsComponent implements OnInit {
     let domain = window.location.host;
     // TODO test info local host
     if (domain.startsWith('localhost')) {
-      domain = '6384968b0b135713e6e2925f.towify.cn';
+      // domain = 't6453516058d1c7c6d56cd6d0.towify.cn';
+      domain = 't6465d20a2d3cd71df1216a4d.towify.cn'
     }
     const result = await this.service.userService.scf.call<SCF.LiveTableGetDataDriverCmsInfo>({
       ignoreToken: true,
@@ -76,5 +87,9 @@ export class DynamicCmsComponent implements OnInit {
         path: '/commodity/resource/commodities'
       });
     this.driverInfo.commodities = result.data ?? [];
+    if (!this.driverInfo.commodities.length) {
+      await this.service.logOut();
+      await this.router.navigate(['/service-unavailable']);
+    }
   }
 }
