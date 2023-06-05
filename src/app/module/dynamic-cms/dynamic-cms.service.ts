@@ -3,9 +3,8 @@ import { UserService } from '@towify/user-engine';
 import { Shared } from 'soid-data';
 import { localStorageKey } from './common/value';
 import { TranslateService } from '@ngx-translate/core';
-import { Language } from '@towify-serverless/scf-api';
 import { WebUploader } from 'src/package-index/web-uploader';
-import { ErrorEnum } from '@towify/scf-engine';
+import { ErrorEnum, Language } from '@towify/scf-engine';
 import { errors } from '@towify/scf-engine/type/common.value';
 import { DynamicCmsMessageService } from './service/dynamic-cms-message.service';
 import { cmsMessageName } from './common/value';
@@ -15,6 +14,7 @@ import { cmsMessageName } from './common/value';
 })
 export class DynamicCmsService {
   #isProduction = false;
+  #isAws = false;
   public userService: UserService;
   public isLoggedIn = false;
   public isLoadingLocalUser = false;
@@ -41,16 +41,20 @@ export class DynamicCmsService {
     return this.#isProduction;
   }
 
+  get isAws() {
+    return this.#isAws;
+  }
+
   get baseUrl() {
     return this.isProduction ? this.productionBaseUrl : this.developmentBaseUrl;
   }
 
   get developmentBaseUrl() {
-    return 'https://api-test-aws.towify.com';
+    return this.isAws ? 'https://api-test-aws.towify.com' : 'https://api-test.towify.com';
   }
 
   get productionBaseUrl() {
-    return 'https://api-test-aws.towify.com';
+    return this.isAws ? 'https://api-test-aws.towify.com' : 'https://api.towify.com';
   }
 
   get user() {

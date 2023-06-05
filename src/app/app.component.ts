@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { DynamicCmsService } from './module/dynamic-cms/dynamic-cms.service';
-import { Shared } from 'soid-data';
 import { DataDriverStorageService } from './module/dynamic-cms/service/data.driver.storage.service';
 @Component({
   selector: 'app-root',

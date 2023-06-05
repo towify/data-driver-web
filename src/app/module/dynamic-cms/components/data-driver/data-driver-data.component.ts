@@ -5,7 +5,7 @@
  */
 
 import { Directive } from '@angular/core';
-import { Language } from '@towify-serverless/scf-api';
+import { Language } from '@towify/scf-engine';
 import { LiveTable } from 'src/package-index/driver';
 import { Subscription } from 'rxjs';
 

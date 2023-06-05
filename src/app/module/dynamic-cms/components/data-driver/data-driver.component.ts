@@ -5,7 +5,7 @@ import { DynamicCmsMessageService } from '../../service/dynamic-cms-message.serv
 import { ImageUrlQuality, cmsMessageName } from '../../common/value';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { LiveTable, LiveTableComponent, LiveTableService } from 'src/package-index/driver';
-import { Language } from '@towify-serverless/scf-api';
+import { Language } from '@towify/scf-engine';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { WebCsvParseService } from '@towify/web-csv-parser';
 import { WebUploader } from 'src/package-index/web-uploader';
