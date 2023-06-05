@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DynamicCmsService } from './dynamic-cms.service';
 import { ToastService } from './service/toast.service';
 import { SCF } from '@towify-serverless/scf-api/scf.info.list';
+import { Commodity } from '@towify-types/user';
 
 @Component({
   selector: 'lib-dynamic-cms',
@@ -19,10 +20,12 @@ export class DynamicCmsComponent implements OnInit {
     id: string;
     name: string;
     domain: string;
+    commodities: Commodity.Type[];
   } = {
     id: '',
     name: '',
-    domain: ''
+    domain: '',
+    commodities: []
   };
 
   constructor(
@@ -40,12 +43,6 @@ export class DynamicCmsComponent implements OnInit {
     // TODO test info local host
     if (domain.startsWith('localhost')) {
       domain = '6384968b0b135713e6e2925f.towify.cn';
-      // this.driverInfo = {
-      //   name: 'Untitled',
-      //   domain: '6384968b0b135713e6e2925f.towify.cn',
-      //   id: '6384968b0b135713e6e2925f'
-      // };
-      // return;
     }
     const result = await this.service.userService.scf.call<SCF.LiveTableGetDataDriverCmsInfo>({
       ignoreToken: true,
@@ -57,14 +54,27 @@ export class DynamicCmsComponent implements OnInit {
       this.driverInfo = {
         id: result.data.id,
         name: result.data.name,
-        domain: domain
+        domain: domain,
+        commodities: []
       };
       this.appInfo = {
         applicationLogo: result.data.cmsLogo ?? this.appInfo.applicationLogo,
         applicationTitle: result.data.cmsName ?? this.appInfo.applicationTitle
       };
+      await this.#loadDriverCommodity(this.driverInfo.id);
     } else {
       this.toast.showWarningMessage(result.errorMessage ?? 'Can not find driver info!');
     }
+  }
+
+  async #loadDriverCommodity(driverId: string): Promise<void> {
+    const result =
+      await this.service.userService.scf.call<SCF.CommodityGetCommodityResourceCommodities>({
+        ignoreToken: true,
+        method: 'get',
+        params: { resourceId: driverId, resourceType: 'dataDriver' },
+        path: '/commodity/resource/commodities'
+      });
+    this.driverInfo.commodities = result.data ?? [];
   }
 }
