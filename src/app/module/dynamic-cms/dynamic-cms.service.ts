@@ -81,7 +81,7 @@ export class DynamicCmsService {
       }
       this.#currentLanguage = <'en_US' | 'zh_CN'>language;
     }
-    return this.#currentLanguage;
+    return this.#currentLanguage!;
   }
 
   set language(lan) {
