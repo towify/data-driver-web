@@ -13,7 +13,7 @@ import { cmsMessageName } from './common/value';
   providedIn: 'root'
 })
 export class DynamicCmsService {
-  #isProduction = false;
+  #isProduction = true;
   #isAws = false;
   public userService: UserService;
   public isLoggedIn = false;
