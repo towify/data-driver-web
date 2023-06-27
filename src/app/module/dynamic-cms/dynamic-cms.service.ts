@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { UserService } from '@towify/user-engine';
 import { Shared } from 'soid-data';
-import { localStorageKey } from './common/value';
+import { AppConfig, localStorageKey } from './common/value';
 import { TranslateService } from '@ngx-translate/core';
 import { WebUploader } from 'src/package-index/web-uploader';
 import { ErrorEnum, Language } from '@towify/scf-engine';
 import { errors } from '@towify/scf-engine/type/common.value';
 import { DynamicCmsMessageService } from './service/dynamic-cms-message.service';
 import { cmsMessageName } from './common/value';
+import packageJson from '../../../../package.json';
+import urlConfig from '../../../towify.config.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DynamicCmsService {
-  #isProduction = true;
-  #isAws = false;
   public userService: UserService;
   public isLoggedIn = false;
   public isLoadingLocalUser = false;
@@ -37,24 +37,24 @@ export class DynamicCmsService {
     }
   ];
 
-  get isProduction() {
-    return this.#isProduction;
-  }
+  public readonly config!: AppConfig;
 
-  get isAws() {
-    return this.#isAws;
+  get isProduction() {
+    return packageJson.environment === 'main';
   }
 
   get baseUrl() {
-    return this.isProduction ? this.productionBaseUrl : this.developmentBaseUrl;
+    return this.config.api;
   }
 
-  get developmentBaseUrl() {
-    return this.isAws ? 'https://api-test-aws.towify.com' : 'https://api-test.towify.com';
+  get developmentConfig() {
+    return <AppConfig>(packageJson.platform === 'cos' ? urlConfig.test : urlConfig['aws-test']);
   }
 
-  get productionBaseUrl() {
-    return this.isAws ? 'https://api-test-aws.towify.com' : 'https://api.towify.com';
+  get productionConfig() {
+    return <AppConfig>(
+      (packageJson.platform === 'cos' ? urlConfig.product : urlConfig['aws-product'])
+    );
   }
 
   get user() {
@@ -97,6 +97,7 @@ export class DynamicCmsService {
     private readonly translateService: TranslateService,
     private readonly translate: TranslateService
   ) {
+    this.config = this.isProduction ? this.productionConfig : this.developmentConfig;
     this.userService = UserService.init({
       url: this.baseUrl,
       language: this.language === 'en_US' ? Language.EN : Language.ZH,

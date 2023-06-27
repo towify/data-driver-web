@@ -49,3 +49,10 @@ export type ImageUrlQuality = {
   small: string;
   thumb: string;
 };
+
+
+export type AppConfig = {
+  api: string;
+  appKey: string;
+  tds: TDSConfigType;
+};

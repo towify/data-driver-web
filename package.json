@@ -1,6 +1,8 @@
 {
   "name": "data-driver-web",
   "version": "0.0.0",
+  "platform": "cos",
+  "environment": "test",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --disableHostCheck",

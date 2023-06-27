@@ -1,0 +1,94 @@
+{
+  "test": {
+    "api": "https://api-test.towify.com",
+    "appKey": "2468d70b71717a08852396971aa9d9c8",
+    "tds": {
+      "Translation": {
+        "tableId": "62df6446ade075f4b96f15c1",
+        "fieldHashName": {
+          "key": "MVMETfx7KXlBWXiN",
+          "enUS": "SgrwAUeuj3GiJMhy",
+          "zhCN": "mDwrv99i7w2iyDeW"
+        }
+      },
+      "ErrorList": {
+        "tableId": "62e8c59985d5fadb0132130d",
+        "fieldHashName": {
+          "code": "r91QWMya1RbFqQpp",
+          "enUS": "sZXAztNi04QikEpo",
+          "zhCN": "lD9x5Z73j3GFGH6V",
+          "needToReport": "irRMrBo8zl84xfsC"
+        }
+      }
+    }
+  },
+  "product": {
+    "api": "https://api.towify.com",
+    "appKey": "53f1ac48924b16cf6b65d55c548b38bd",
+    "tds": {
+      "Translation": {
+        "tableId": "62df6446ade075f4b96f15c1",
+        "fieldHashName": {
+          "key": "MVMETfx7KXlBWXiN",
+          "enUS": "SgrwAUeuj3GiJMhy",
+          "zhCN": "mDwrv99i7w2iyDeW"
+        }
+      },
+      "ErrorList": {
+        "tableId": "62e8c59985d5fadb0132130d",
+        "fieldHashName": {
+          "code": "r91QWMya1RbFqQpp",
+          "enUS": "sZXAztNi04QikEpo",
+          "zhCN": "lD9x5Z73j3GFGH6V",
+          "needToReport": "irRMrBo8zl84xfsC"
+        }
+      }
+    }
+  },
+  "aws-test": {
+    "api": "https://api-test-aws.towify.com",
+    "appKey": "2468d70b71717a08852396971aa9d9c8",
+    "tds": {
+      "Translation": {
+        "tableId": "62df6446ade075f4b96f15c1",
+        "fieldHashName": {
+          "key": "MVMETfx7KXlBWXiN",
+          "enUS": "SgrwAUeuj3GiJMhy",
+          "zhCN": "mDwrv99i7w2iyDeW"
+        }
+      },
+      "ErrorList": {
+        "tableId": "62e8c59985d5fadb0132130d",
+        "fieldHashName": {
+          "code": "r91QWMya1RbFqQpp",
+          "enUS": "sZXAztNi04QikEpo",
+          "zhCN": "lD9x5Z73j3GFGH6V",
+          "needToReport": "irRMrBo8zl84xfsC"
+        }
+      }
+    }
+  },
+  "aws-product": {
+    "api": "https://api-test-aws.towify.com",
+    "appKey": "2468d70b71717a08852396971aa9d9c8",
+    "tds": {
+      "Translation": {
+        "tableId": "62df6446ade075f4b96f15c1",
+        "fieldHashName": {
+          "key": "MVMETfx7KXlBWXiN",
+          "enUS": "SgrwAUeuj3GiJMhy",
+          "zhCN": "mDwrv99i7w2iyDeW"
+        }
+      },
+      "ErrorList": {
+        "tableId": "62e8c59985d5fadb0132130d",
+        "fieldHashName": {
+          "code": "r91QWMya1RbFqQpp",
+          "enUS": "sZXAztNi04QikEpo",
+          "zhCN": "lD9x5Z73j3GFGH6V",
+          "needToReport": "irRMrBo8zl84xfsC"
+        }
+      }
+    }
+  }
+}

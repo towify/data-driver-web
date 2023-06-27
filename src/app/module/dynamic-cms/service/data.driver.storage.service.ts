@@ -54,7 +54,7 @@ export class DataDriverStorageService {
     });
     this.tds = new TDSManager({
       appKey: this.#appKey,
-      url: this.commonService.productionBaseUrl
+      url: this.commonService.productionConfig.api
     });
     this.queryMap = {
       Translation: new TDS.Table(this.tableConfig.Translation.tableId, this.tds).query,
