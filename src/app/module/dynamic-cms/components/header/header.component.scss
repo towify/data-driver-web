@@ -55,11 +55,14 @@
     }
     span {
       width: fit-content;
-      max-width: 50vw;
+      max-width: 20vw;
       color: $text-content;
       font-size: 16px;
       line-height: $headerHeight;
       height: $headerHeight;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
     }
   }
 

@@ -52,8 +52,8 @@ export class DynamicCmsComponent implements OnInit {
     let domain = window.location.host;
     // TODO test info local host
     if (domain.startsWith('localhost')) {
-      // domain = 't6453516058d1c7c6d56cd6d0.towify.cn';
-      domain = 't6465d20a2d3cd71df1216a4d.towify.cn'
+      domain = 't6453516058d1c7c6d56cd6d0.towify.cn';
+      // domain = 't6465d20a2d3cd71df1216a4d.towify.cn'
     }
     const result = await this.service.userService.scf.call<SCF.LiveTableGetDataDriverCmsInfo>({
       ignoreToken: true,
@@ -70,7 +70,7 @@ export class DynamicCmsComponent implements OnInit {
       };
       this.appInfo = {
         applicationLogo: result.data.cmsLogo ?? this.appInfo.applicationLogo,
-        applicationTitle: result.data.cmsName ?? this.appInfo.applicationTitle
+        applicationTitle: result.data.cmsName ?? result.data.name ?? this.appInfo.applicationTitle
       };
       await this.#loadDriverCommodity(this.driverInfo.id);
     } else {
@@ -89,6 +89,7 @@ export class DynamicCmsComponent implements OnInit {
     this.driverInfo.commodities = result.data ?? [];
     if (!this.driverInfo.commodities.length) {
       await this.service.logOut();
+      this.service.userService?.stopPollingWeChatLoginState();
       await this.router.navigate(['/service-unavailable']);
     }
   }
