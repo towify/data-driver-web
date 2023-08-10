@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { DynamicCmsService } from '../../dynamic-cms.service';
 import { Router } from '@angular/router';
 import { DynamicCmsMessageService } from '../../service/dynamic-cms-message.service';
-import { ImageUrlQuality, cmsMessageName } from '../../common/value';
+import { ImageUrlQuality, ToolbarItem, cmsMessageName } from '../../common/value';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { LiveTable, LiveTableComponent, LiveTableService } from 'src/package-index/driver';
 import { Language } from '@towify/scf-engine';
@@ -38,8 +38,14 @@ export class DataDriverComponent extends DataDriverDataComponent implements OnIn
 
   @ViewChild('csvInput') csvInput?: ElementRef;
 
+  @ViewChild('tableViewTrigger') private tableViewTrigger?: MatMenuTrigger;
+
   #loadingRef?: MatDialogRef<any>;
   #photoKitInitialConfig?: PhotoKit.InitialType;
+  displayTypes: { type: 'table' | 'gallery'; icon: string; name: string }[] = [
+    { type: 'table', name: 'TBL_VW', icon: 'list_alt' },
+    { type: 'gallery', name: 'GLLRY_VW', icon: 'view_stream' }
+  ];
 
   constructor(
     public readonly service: DynamicCmsService,
@@ -106,12 +112,12 @@ export class DataDriverComponent extends DataDriverDataComponent implements OnIn
       await updateConfigHandler();
     });
     this.message
-      .getMessage<{ key: string; event: MouseEvent }>(cmsMessageName.toolbarAction)
+      .getMessage<{ item: ToolbarItem; event: MouseEvent }>(cmsMessageName.toolbarAction)
       .subscribe(async result => {
-        if (!result.key) {
+        if (!result.item.key) {
           return;
         }
-        switch (result.key) {
+        switch (result.item.key) {
           case 'SideBar':
             this.dataDriver?.showSideNavigator();
             break;
@@ -151,12 +157,15 @@ export class DataDriverComponent extends DataDriverDataComponent implements OnIn
               return;
             }
             this.isHighlight = !this.isHighlight;
+            result.item.isSelected = this.isHighlight;
             break;
           case 'Primary':
             if (this.dataDriver?.isDashboardSelected) {
               return;
             }
             this.showPrimaryKey = !this.showPrimaryKey;
+            result.item.isSelected = this.showPrimaryKey;
+            this.dataDriver?.updateCurrentTableShowPrimary(this.showPrimaryKey);
             break;
           case 'Refresh':
             this.dataDriver?.refreshCurrentTable();
@@ -172,6 +181,15 @@ export class DataDriverComponent extends DataDriverDataComponent implements OnIn
               return;
             }
             this.dataDriver?.exportToCsv();
+            break;
+          case 'DisplayType':
+            this.menuPosition = {
+              x: result.event.clientX - result.event.offsetX,
+              y: result.event.clientY - result.event.offsetY,
+              width: (<HTMLElement>result.event.target).clientWidth,
+              height: (<HTMLElement>result.event.target).clientHeight
+            };
+            this.tableViewTrigger?.openMenu();
             break;
           default:
             break;
@@ -438,5 +456,25 @@ export class DataDriverComponent extends DataDriverDataComponent implements OnIn
         resolve(undefined);
       });
     });
+  }
+
+  public onSwitchTable(): void {
+    const showPrimaryKeyItem = this.service.headerToolbarActions.find(item => item.key === 'Primary');
+    if (showPrimaryKeyItem) {
+      showPrimaryKeyItem.isSelected = this.dataDriver?.showPrimaryKey === true;
+    }
+    this.updateDisplayTypeToolbarItem(this.dataDriver?.displayType ?? 'table');
+  }
+
+  public updateDisplayTypeToolbarItem(type: 'table' | 'gallery'): void {
+    const displayTypeItem = this.service.headerToolbarActions.find(item => item.key === 'DisplayType');
+    if (displayTypeItem) {
+      const typeInfo = this.displayTypes.find(item => item.type === type);
+      if (typeInfo) {
+        displayTypeItem.icon = typeInfo.icon;
+        displayTypeItem.name = typeInfo.name;
+        displayTypeItem.type = typeInfo.type;
+      }
+    }
   }
 }

@@ -66,10 +66,6 @@
     }
   }
 
-  .selected {
-    border-bottom: 3px solid white;
-  }
-
   .common-button {
     background-color: white;
     width: 120px;
@@ -218,6 +214,25 @@
       &.space {
         margin-left: auto;
         margin-right: 0;
+        pointer-events: none;
+      }
+
+      &.title {
+        display: flex;
+        min-width: 32px;
+        width: max-content;
+        flex-direction: row;
+        column-gap: 5px;
+        justify-items: center;
+
+        span {
+          font-size: 12px;
+          line-height: 22px;
+        }
+
+        .mat-icon {
+          line-height: 22px;
+        }
       }
 
       .disabled {
@@ -259,6 +274,8 @@
       }
 
       &.selected {
+        border-radius: 8px;
+        background-color: $primary-dark;
         .mat-icon {
           color: $primary;
         }

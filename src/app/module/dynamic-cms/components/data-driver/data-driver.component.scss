@@ -55,3 +55,50 @@
     min-height: 32px;
   }
 }
+
+::ng-deep .table-view-drop-menu {
+  width: 140px !important;
+  max-width: unset !important;
+  min-height: 60px;
+
+  ::ng-deep .mat-mdc-menu-content:not(:empty) {
+    padding: 10px;
+  }
+
+  .item {
+    display: grid;
+    grid-template-columns: 16px auto;
+    column-gap: 10px;
+    box-sizing: border-box;
+    color: $text-content;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 2px 5px;
+
+    mat-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+      line-height: 16px;
+    }
+
+    span {
+      font-size: 12px;
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+
+.menu-trigger {
+  background: transparent;
+  pointer-events: none;
+  z-index: -100;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+}

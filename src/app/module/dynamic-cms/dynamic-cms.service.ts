@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserService } from '@towify/user-engine';
 import { Shared } from 'soid-data';
-import { AppConfig, localStorageKey } from './common/value';
+import { AppConfig, localStorageKey, ToolbarItem } from './common/value';
 import { TranslateService } from '@ngx-translate/core';
 import { WebUploader } from 'src/package-index/web-uploader';
 import { ErrorEnum, Language } from '@towify/scf-engine';
@@ -21,18 +21,11 @@ export class DynamicCmsService {
   isLoginLoading = false;
   #currentLanguage?: 'en_US' | 'zh_CN';
   #client: 'web' | 'electron' | 'projectCms' = 'projectCms';
-  headerToolbarActions: {
-    icon: string;
-    key: string;
-    isSelected: boolean;
-    tooltip: string;
-    isSpace: boolean;
-  }[] = [
+  headerToolbarActions: ToolbarItem[] = [
     {
       icon: '',
       key: '',
       isSelected: false,
-      tooltip: '',
       isSpace: true
     }
   ];

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { DOCUMENT } from '@angular/common';
 import { Shared } from 'soid-data';
-import { localStorageKey } from '../../common/value';
+import { ToolbarItem, localStorageKey } from '../../common/value';
 import { cmsMessageName } from '../../common/value';
 import { DynamicCmsMessageService } from '../../service/dynamic-cms-message.service';
 
@@ -55,8 +55,8 @@ export class HeaderComponent implements OnInit {
     await this.service.logOut();
   }
 
-  public onToolbarActionClicked(key: string, event: MouseEvent): void {
-    this.message.notify(cmsMessageName.toolbarAction, { event, key });
+  public onToolbarActionClicked(item: ToolbarItem, event: MouseEvent): void {
+    this.message.notify(cmsMessageName.toolbarAction, { event, item });
   }
 
   setLanguage(languageType: 'English' | '中文') {

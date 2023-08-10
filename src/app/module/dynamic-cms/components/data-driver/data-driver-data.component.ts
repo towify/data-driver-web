@@ -8,6 +8,7 @@ import { Directive } from '@angular/core';
 import { Language } from '@towify/scf-engine';
 import { LiveTable } from 'src/package-index/driver';
 import { Subscription } from 'rxjs';
+import { ToolbarItem } from '../../common/value';
 
 @Directive()
 export abstract class DataDriverDataComponent {
@@ -101,95 +102,84 @@ export abstract class DataDriverDataComponent {
     }
   ];
 
-  headerToolbarActions: {
-    icon: string;
-    key: string;
-    isSelected: boolean;
-    tooltip: string;
-    isSpace: boolean;
-  }[] = [
+  headerToolbarActions: ToolbarItem[] = [
     {
       icon: 'toolbar_side_bar',
       key: 'SideBar',
       isSelected: false,
-      tooltip: '',
       isSpace: false
     },
     {
       icon: 'toolbar_table',
       key: 'GenerateTable',
       isSelected: false,
-      tooltip: '',
       isSpace: false
     },
     {
       icon: 'toolbar_filter',
       key: 'Filter',
       isSelected: false,
-      tooltip: '',
       isSpace: false
     },
     {
       icon: 'toolbar_sort',
       key: 'HideFields',
       isSelected: false,
-      tooltip: '',
       isSpace: false
     },
     {
       icon: 'toolbar_row_height',
       key: 'RowHeight',
       isSelected: false,
-      tooltip: '',
       isSpace: false
     },
     {
       icon: 'toolbar_csv',
       key: 'importTableByCSV',
       isSelected: false,
-      tooltip: '',
       isSpace: false
     },
     {
       icon: 'toolbar_export_csv',
       key: 'exportTableAsCSV',
       isSelected: false,
-      tooltip: '',
       isSpace: false
     },
     {
       icon: '',
       key: '',
       isSelected: false,
-      tooltip: '',
       isSpace: true
+    },
+    {
+      icon: '',
+      key: 'DisplayType',
+      isSelected: false,
+      isSpace: false,
+      matIcon: true
     },
     {
       icon: 'toolbar_highlight',
       key: 'Highlight',
       isSelected: false,
-      tooltip: '',
       isSpace: false
     },
     {
       icon: 'toolbar_show_primary',
       key: 'Primary',
       isSelected: false,
-      tooltip: '',
       isSpace: false
     },
     {
       icon: 'toolbar_data_driver_refresh',
       key: 'Refresh',
       isSelected: false,
-      tooltip: '',
       isSpace: false
     },
     {
       icon: 'toolbar_data_driver_search',
       key: 'Search',
       isSelected: false,
-      tooltip: '',
       isSpace: false
     }
   ];
@@ -197,6 +187,7 @@ export abstract class DataDriverDataComponent {
   menuInfo?: LiveTable.ContentMenuInfoType & {
     hold: (key: LiveTable.ContentMenuResultType) => void;
   };
+
   menuPosition: { x: number; y: number; width: number; height: number } = {
     x: 0,
     y: 0,

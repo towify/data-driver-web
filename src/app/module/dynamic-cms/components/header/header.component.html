@@ -11,10 +11,17 @@
     <div
       class="round-button"
       *ngFor="let item of service.headerToolbarActions"
-      [ngClass]="[item.isSelected ? 'selected' : '', item.isSpace ? 'space' : '']"
-      [matTooltip]="item.tooltip | translate"
+      [ngClass]="[
+        item.isSelected ? 'selected' : '',
+        item.isSpace ? 'space' : '',
+        item.name?.length ? 'title' : ''
+      ]"
+      [matTooltip]="item.tooltip || '' | translate"
+      (click)="onToolbarActionClicked(item, $event)"
     >
-      <mat-icon [svgIcon]="item.icon" (click)="onToolbarActionClicked(item.key, $event)"></mat-icon>
+      <mat-icon [svgIcon]="item.icon" *ngIf='!item.matIcon'></mat-icon>
+      <mat-icon *ngIf='item.matIcon' >{{ item.icon }}</mat-icon>
+      <span *ngIf="item.name">{{ item.name | translate }}</span>
     </div>
     <div class="split-line"></div>
     <div

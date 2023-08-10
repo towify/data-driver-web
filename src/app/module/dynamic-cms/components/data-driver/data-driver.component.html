@@ -5,7 +5,7 @@
     [initConfig]="dataDriverConfig"
     [extra]="extra"
     [isCrossHairHighlighting]="isHighlight"
-    [showPrimaryKey]="showPrimaryKey"
+    (onSwitchTable)='onSwitchTable()'
   ></lib-live-table>
 </div>
 <input
@@ -37,3 +37,27 @@
     </div>
   </div>
 </mat-menu>
+
+
+<mat-menu #tableViewMenu="matMenu" [overlapTrigger]="false" class="table-view-drop-menu" [hasBackdrop]="true">
+  <div
+    class="item"
+    [ngClass]="dataDriver?.displayType === item.type ? 'selected' : ''"
+    *ngFor="let item of displayTypes"
+    (click)="updateDisplayTypeToolbarItem(item.type); dataDriver?.updateCurrentTableDisplayType(item.type)"
+  >
+    <mat-icon>{{ item.icon }}</mat-icon>
+    <span>{{ item.name | translate }}</span>
+  </div>
+</mat-menu>
+
+<div
+  class="menu-trigger"
+  [style.left.px]="menuPosition.x"
+  [style.top.px]="menuPosition.y"
+  [style.width.px]="menuPosition.width"
+  [style.height.px]="menuPosition.height"
+  #tableViewTrigger="matMenuTrigger"
+  [matMenuTriggerFor]="tableViewMenu"
+>
+</div>

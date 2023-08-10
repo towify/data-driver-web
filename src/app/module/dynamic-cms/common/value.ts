@@ -56,3 +56,15 @@ export type AppConfig = {
   appKey: string;
   tds: TDSConfigType;
 };
+
+
+export type ToolbarItem = {
+  icon: string;
+  key: string;
+  isSelected: boolean;
+  matIcon?: boolean;
+  isSpace?: boolean;
+  tooltip?: string;
+  name?: string;
+  type?: string;
+};
