@@ -51,3 +51,5 @@ if (process.argv[3] === 'china') {
 fileSystem.writeFileSync('package.json', JSON.stringify(packageJson, null, 2));
 // 更新 package 后 安装新包
 execSync('yarn install', { stdio: 'inherit' });
+execSync('rm -rf .angular', { stdio: 'inherit' });
+execSync('rm -rf dist', { stdio: 'inherit' });
